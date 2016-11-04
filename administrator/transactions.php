@@ -5,96 +5,97 @@
 
 <!-- Main Wrapper -->
 <div id="wrapper">
-	
-	<div class="row">
-        <div class="col-lg-12 text-center m-t-md">
-            <h2>
-                Transactions
-            </h2>
-        </div>
-    </div>
-	
-	<div class="normalheader transition animated fadeIn">
-	    <div class="hpanel">
-	        <div class="panel-body">
-	            <a class="small-header-action" href="">
-	                <div class="clip-header">
-	                    <i class="fa fa-arrow-up"></i>
-	                </div>
-	            </a>
-
-	            <div id="hbreadcrumb" class="pull-right m-t-lg">
-	                <ol class="hbreadcrumb breadcrumb">
-	                    <li><a href="index.html">Transactions</a></li>
-	                    <li>
-	                        <span>Tables</span>
-	                    </li>
-	                    <li class="active">
-	                        <span>Tables design</span>
-	                    </li>
-	                </ol>
-	            </div>
-	            <h2 class="font-light m-b-xs">
-	                Tables design
-	            </h2>
-	            <small>Examples of various designs of tables.</small>
-	        </div>
-	    </div>
-	</div>
-
     <div class="content animate-panel">
         <div class="row">
-		    <div class="col-lg-12" style="">
-		        <div class="hpanel">
-		            <div class="panel-body">
-		                <div class="table-responsive">
-			                <table class="table table-bordered table-striped" cellspacing="1" cellpadding="1">
-			                    <thead>
-			                    <tr>
-			                        <th>Transaction type</th>
-			                        <th>Description</th>
-			                        <th>From</th>
-			                        <th>To</th>
-			                        <th>Time/Date</th>
-			                    </tr>
-			                    </thead>
-			                    <tbody>
-				                    <tr>
-				                        <td>Some type</td>
-				                        <td>The description</td>
-				                        <td>Timothy</td>
-				                        <td>Mitchel</td>
-				                        <td>10-10-2016</td>
-				                    </tr>
+            <div class="col-lg-12 text-center m-t-md">
+                <h2>
+                    View Transactions
+                </h2>
+            </div>
+        </div>
+    </div>
 
-				                    <tr>
-				                        <td>Some type</td>
-				                        <td>The description</td>
-				                        <td>Timothy</td>
-				                        <td>Mitchel</td>
-				                        <td>10-10-2016</td>
-				                    </tr>
-	
-									<tr>
-				                        <td>Some type</td>
-				                        <td>The description</td>
-				                        <td>Timothy</td>
-				                        <td>Mitchel</td>
-				                        <td>10-10-2016</td>
-				                    </tr>
+        <div class="content animate-panel">
+        <div class="row">
+            <div class="col-lg-12" style="">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>New transaction</a>
+                        <div class="modal fade" id="modal-id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="color-line"></div>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Make a new transaction</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="http://gocodeops.com/hackathon_guyana_app/public/create/transactions" method="POST" role="form" id="new">
 
-									
-			                    </tbody>
-			                </table>
-						</div>
+                                            <div class="form-group">
+                                                <label for="">Place receiver ID here: </label>
+                                                <input type="text" class="form-control" name="receiver_id" placeholder="Input field">
+                                            </div>
 
-		            </div>
-		            <div class="panel-footer">
-		                1 out of 1 active users
-		            </div>
-		        </div> <!-- hpanel -->
-		    </div>
-		</div> <!-- Row -->
+                                            <div class="form-group">
+                                                <label for="">Amount: </label>
+                                                <input type="text" class="form-control" name="amount" placeholder="Input field">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" cellspacing="1" cellpadding="1">
+                                <thead>
+                                <tr>
+                                    <th>Receiver ID</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody id="toAppend">
+                                    <!-- appended data here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div> <!-- hpanel -->
+            </div>
+        </div> <!-- Row -->
     </div> <!-- content animate-panel -->
-</div> <!-- Wrapper -->
+</div>
 <?php include 'footer.php'; ?>
+
+<script type="text/javascript">
+    $.get('http://gocodeops.com/hackathon_guyana_app/public/read/transactions', function(data){
+        data = $.parseJSON(data);
+        console.log(data);
+        $.each(data, function(i,value){
+            $("#toAppend").append('<tr><td>'+value.receiver_id+'</td><td>'+value.amount+'</td><td>'+value.date+'</td></tr>');
+        });
+    });
+
+formName = $("#new");
+formName.submit(function (ev) {
+    $.ajax({
+        method: formName.attr('method'),
+        url: formName.attr('action'),
+        data: formName.serialize(),
+        success: function() {
+            swal({
+                title: "Created",
+                text: "A new transactions has been made!",
+                type: "success"
+            });
+            location.reload();
+        }
+    });
+    ev.preventDefault();
+});
+</script>
