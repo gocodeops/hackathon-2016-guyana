@@ -51,28 +51,17 @@
 			                <table class="table table-bordered table-striped" cellspacing="1" cellpadding="1">
 			                    <thead>
 			                    <tr>
-			                        <th>Name</th>
-			                        <th>Phone</th>
+			                        <th>ID</th>
+			                        <th>Firstname</th>
+			                        <th>Lastname</th>
+			                        <th>District</th>
 			                        <th>Street Address</th>
-			                        <th>City</th>
-			                        <th>Active</th>
+			                        <th>Activate</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
-				                    <tr>
-				                        <td>Abraham</td>
-				                        <td>076 9477 4896</td>
-				                        <td>294-318 Duis Ave</td>
-				                        <td>Vosselaar</td>
-				                        <td><a href="assign"><button class="btn btn-success btn-xs">Activate</button></a></td>
-				                    </tr>
 
-				                    <tr>
-				                        <td>Abraham</td>
-				                        <td>076 9477 4896</td>
-				                        <td>294-318 Duis Ave</td>
-				                        <td>Vosselaar</td>
-				                        <td><a href="assign"><button class="btn btn-success btn-xs">Activate</button></a></td>
+			                    	<!-- Users  -->
 
 			                    </tbody>
 			                </table>
@@ -88,3 +77,34 @@
     </div> <!-- content animate-panel -->
 </div> <!-- Wrapper -->
 <?php include 'footer.php'; ?>
+
+<script type="text/javascript">
+	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/unassigned', function(data) {
+		data = $.parseJSON(data);
+		
+		$.each(data, function(i, value) {
+			var active = data[i].active;
+			var active_status = '';
+
+			var id = data[i].id;
+
+			if(active == 0) {
+				active_status = '<a href="assign?id='+id+'"><button class="btn btn-primary">Enable</button></a>';
+			}
+
+			var content = '\
+				<tr>\
+                    <td>'+id+'</td>\
+                    <td>'+data[i].firstname+'</td>\
+                    <td>'+data[i].lastname+'</td>\
+                    <td>'+data[i].district+'</td>\
+                    <td>'+data[i].address+'</td>\
+                    <td>'+active_status+'</td>\
+                </tr>\
+			';
+
+			$('tbody').append(content);
+			
+		});
+	});
+</script>
