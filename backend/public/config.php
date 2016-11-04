@@ -2,9 +2,9 @@
     $config = array(
         'driver'    => 'mysql', // Db driver
         'host'      => 'localhost',
-        'database'  => 'app_nais',
-        'username'  => 'root',
-        'password'  => '',
+        'database'  => 'gocodeop_guyana2016',
+        'username'  => 'gocodeop_hack',
+        'password'  => ';GiON;]F8JU^',
         // 'charset'   => 'utf8', // Optional
         // 'collation' => 'utf8_unicode_ci', // Optional
         // 'prefix'    => 'cb_', // Table prefix, optional
