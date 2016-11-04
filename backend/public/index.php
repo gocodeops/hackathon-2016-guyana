@@ -84,7 +84,7 @@ $app->post('/login', function ($request, $response, $args) {
     } else {
         echo 0;
     }
-    
+
 });
 
 // register the password
@@ -93,6 +93,15 @@ $app->post('/addpassword', function(){
         'password' => sha1($_POST['password'])
     );
     $query = QB::table('my_table')->where('id', htmlspecialchars($_POST['id']))->update($data);
+    print_r(json_encode($query));
+});
+
+// get transaction byID
+$app->get('/transactions/{receiver_id}', function ($request, $response, $args) {
+    // echo $args['receiver_id'];
+    // echo "jas";
+    $query = DB::table('transactions')->where('receiver_id', $args['receiver_id'])->get();
+    // return the query
     print_r(json_encode($query));
 });
 
