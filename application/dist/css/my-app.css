@@ -1,5 +1,21 @@
+
 .app_icon{
-	height: 50%;
-	width: 50%;
+	width: 200px;
+	height: 200px;
+	border-radius: 150px;
 	margin:20% 0 0 0;
+	background-color: #ACBBE6;
+}
+
+.form_login{
+	margin: 0 10% 0 10%;
+}
+.icon{
+	font-size: 30px;
+}
+.placeholder_login{
+	margin: 0 0 0 13% !important;
+}
+.button_signin{
+	text-align: center;
 }
