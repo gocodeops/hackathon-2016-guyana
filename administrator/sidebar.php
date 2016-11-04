@@ -8,6 +8,8 @@
         </div>
         <ul class="nav" id="side-menu">
             <li><a href="home"> <span class="nav-label">Dashboard</span></a></li>
+            <li><a href="home"> <span class="nav-label">Users</span></a></li>
+            <li><a href="home"> <span class="nav-label">Assign user</span></a></li>
             <li><a id="uitloggen"><span class="nav-label">Logout</span></a></li>
         </ul>
     </div>
