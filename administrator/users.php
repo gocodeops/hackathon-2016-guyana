@@ -51,29 +51,17 @@
 			                <table class="table table-bordered table-striped" cellspacing="1" cellpadding="1">
 			                    <thead>
 			                    <tr>
-			                        <th>Name</th>
-			                        <th>Phone</th>
+			                        <th>ID</th>
+			                        <th>Firstname</th>
+			                        <th>Lastname</th>
+			                        <th>District</th>
 			                        <th>Street Address</th>
-			                        <th>City</th>
 			                        <th>Active</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
-				                    <tr>
-				                        <td>Abraham</td>
-				                        <td>076 9477 4896</td>
-				                        <td>294-318 Duis Ave</td>
-				                        <td>Vosselaar</td>
-				                        <td><span class="label label-success">Active</span></td>
-				                    </tr>
 
-				                    <tr>
-				                        <td>Abraham</td>
-				                        <td>076 9477 4896</td>
-				                        <td>294-318 Duis Ave</td>
-				                        <td>Vosselaar</td>
-				                        <td><span class="label label-warning">Not active</span></td>
-				                    </tr>
+			                    	<!-- Users  -->
 
 			                    </tbody>
 			                </table>
@@ -88,4 +76,43 @@
 		</div> <!-- Row -->
     </div> <!-- content animate-panel -->
 </div> <!-- Wrapper -->
+
 <?php include 'footer.php'; ?>
+
+<script type="text/javascript">
+	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data) {
+		data = $.parseJSON(data);
+		
+		$.each(data, function(i, value) {
+			var active = data[i].active;
+			var active_status = '';
+			var active_count = 0;
+			var total_users = data.length;
+
+			if(active == 1) {
+				active_status = '<span class="label label-success">Active</span>';
+			} else if(active == 0) {
+				active_status = '<span class="label label-warning">Not active</span>';
+			}		
+
+			if(active == 1) {
+				active_count++;
+			}
+
+			var content = '\
+				<tr>\
+                    <td>'+data[i].id+'</td>\
+                    <td>'+data[i].firstname+'</td>\
+                    <td>'+data[i].lastname+'</td>\
+                    <td>'+data[i].district+'</td>\
+                    <td>'+data[i].address+'</td>\
+                    <td>'+active_status+'</td>\
+                </tr>\
+			';
+
+			$('tbody').append(content);
+			$('.panel-footer').html(active_count+' out of '+total_users+' active users');
+			
+		});
+	});
+</script>

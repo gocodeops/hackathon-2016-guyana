@@ -20,15 +20,15 @@
                 <div class="panel-body">
                         <form action="#" id="login_form">
                             <div class="form-group">
-                                <label class="control-label" for="username">Username</label>
-                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="email" class="form-control">
+                                <label class="control-label" for="username">ID</label>
+                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="id" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
                                 <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
                             </div>
-                            <!-- <button type="submit" class="btn btn-success btn-block">Login</button> -->
-                            <a class="btn btn-default btn-block" href="home">Login</a>
+                            <button type="submit" class="btn btn-success btn-block">Login</button>
+                            <!-- <a class="btn btn-default btn-block" href="home">Login</a> -->
                         </form>
                 </div>
             </div>
@@ -44,4 +44,21 @@
 
 <script type="text/javascript">
 
+    $('#login_form').submit(function(e) {
+
+        e.preventDefault();
+
+        $.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/login', 
+        {
+            id: $('#id').val(),
+            password: $('#password').val()
+        }, function(data) {
+            if(data == 1) {
+                window.location = 'users.php';
+            } else {
+                alert("Couldn't log in");
+            }
+    });
+
+    });
 </script>

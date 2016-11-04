@@ -12,7 +12,7 @@
     <script type="text/javascript" src="scripts/lightbox-plus-jquery.min.js"></script>
     <script src="scripts/jquery.csv.min.js"></script>
     <script src="scripts/jquery.uploadfile.js"></script>
-    <script src="../scripts/checklogin.js"></script>
+    <!-- <script src="../scripts/checklogin.js"></script> -->
 
 
     <script type="text/javascript">
@@ -31,25 +31,6 @@
             return http.status;
             // this will return 200 on success, and 0 or negative value on error
         }
-
-    $("#uitloggen").click(function(){
-            // make a log
-
-            if (sessionStorage.user_login == null) {
-                window.location = "index";
-            }
-            $.post('../backend/index.php/audit_log/', {
-                user_id: sessionStorage.user_login,
-                module: 'Uitloggen',
-                act: 'Uitgelogd'
-            }, function(data){
-                if (data == 1) {
-                    // location.href = document.referrer;
-                    sessionStorage.clear();
-                    window.location = "index";
-                }
-            });
-        });
     </script>
     </body>
 </html>
