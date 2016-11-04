@@ -1,4 +1,10 @@
-
+/*helper classes*/
+.text-right{
+	text-align: right;
+}
+.text-left{
+	text-align: left;
+}
 .app_icon{
 	width: 200px;
 	height: 200px;
