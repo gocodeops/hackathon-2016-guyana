@@ -37,3 +37,17 @@
 .footer_cart{
 	text-align: center;
 }
+.style_a{
+	color: #000;
+}
+.font_size{
+	font-size: 30px;
+}
+.test{
+	line-height: 0px;
+}
+.icon_login{
+	float: left;
+	font-size: 30px;
+	margin: 5px;
+}
