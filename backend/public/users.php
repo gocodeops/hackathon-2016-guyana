@@ -11,7 +11,6 @@
     // Assign
     $app->post('/assign', function($request, $response, $args){
         $data = array(
-            'password'    => sha1($_POST['password']),
             'active' => '1'
         );
         $query = DB::table('users')->where('id', htmlspecialchars($_POST['id']))->update($data);
