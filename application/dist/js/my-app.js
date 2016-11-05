@@ -1,4 +1,6 @@
-var myApp = new Framework7();
+var myApp = new Framework7({
+	material: true,
+});
 
 var $$ = Dom7;
 
