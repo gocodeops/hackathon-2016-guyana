@@ -1,5 +1,4 @@
-// tested and worked!
-
+//Login routing
 myApp.onPageInit('login', function(page) {
 
     myApp.hideIndicator();    
@@ -12,10 +11,9 @@ myApp.onPageInit('login', function(page) {
         }, function(data) {
             data = JSON.parse(data);
             console.log(data);
-            if(data.success == 'false'){
+            if(data.success == 'false') {
                 myApp.alert("Couldn't log in");
             } else {
-                // myApp.alert("hij mag inloggen!");
                 var first_use = data[0].first_use;
                 var login_url = '';
 
@@ -35,12 +33,12 @@ myApp.onPageInit('login', function(page) {
     
 });
 
-// not tested
+//Create password on first use
 myApp.onPageInit('set_password', function (page) {
 
     $$('#create_password').submit(function(e) {
         e.preventDefault();
-    	// var id =
+
     	var password1 = $$('#password1').val();
 		var password2 = $$('#password2').val();
 
@@ -64,18 +62,16 @@ myApp.onPageInit('set_password', function (page) {
     });
 });
 
-// tested and works
+//Insert password if not first use
 myApp.onPageInit('login_normal', function (page) {
 
     $$('#login_normaal').submit(function(e) {
         e.preventDefault();
-        // myApp.alert("submitted login normaal");
         $$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/login',
             {
                 id: localStorage.getItem('receiver_id'),
                 password: $$('#password').val()
             }, function(data) {
-                // alert(data);
                 if(data == 1) {
                     mainView.router.loadPage('views/transactions.html');
                 } else {

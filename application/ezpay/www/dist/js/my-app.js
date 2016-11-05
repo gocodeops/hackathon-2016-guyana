@@ -17,16 +17,11 @@ myApp.onPageInit('index', function (page) {
     }
 
     if(localStorage.getItem('receiver_id') && first_use == '0') {
-        
-        setInterval(function() {
-            myApp.hideIndicator();
-            mainView.router.loadPage('views/login_normaal.html');
-        }, 100);
+        myApp.hideIndicator();
+        mainView.router.loadPage('views/login_normaal.html');
     } else {
-        setInterval(function() {
-            myApp.hideIndicator();
-            mainView.router.loadPage('views/login.html');
-        }, 100);
+        myApp.hideIndicator();
+        mainView.router.loadPage('views/login.html');
     }
 
 }).trigger();
