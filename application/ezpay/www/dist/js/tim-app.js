@@ -1,5 +1,32 @@
 // tested and worked!
-myApp.onPageInit('login', function (page) {
+
+myApp.onPageInit('index', function (page) {
+
+    myApp.showIndicator();
+
+    var first_use = '';
+    if(localStorage.getItem('first_use')) {
+        first_use = localStorage.getItem('first_use');
+    }
+
+    if(localStorage.getItem('receiver_id') && first_use == '0') {
+        
+        setInterval(function() {
+            myApp.hideIndicator();
+            mainView.router.loadPage('views/login_normaal.html');
+        }, 100);
+    } else {
+        setInterval(function() {
+            myApp.hideIndicator();
+            mainView.router.loadPage('views/login.html');
+        }, 100);
+    }
+
+});
+
+myApp.onPageInit('login', function(page) {
+
+    myApp.hideIndicator();
 
     // if (localStorage.getItem('receiver_id') != null) {
     //     console.log("user exists");
@@ -14,7 +41,7 @@ myApp.onPageInit('login', function (page) {
     
     $$('#login').submit(function(e) {
         e.preventDefault();
-    	$$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/app_login',
+        $$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/app_login',
         {
             id: $$('#id').val()
         }, function(data) {
@@ -40,6 +67,7 @@ myApp.onPageInit('login', function (page) {
             }
         });
     });
+    
 });
 
 // not tested
@@ -59,7 +87,9 @@ myApp.onPageInit('set_password', function (page) {
 		            id: $$('#id').val(),
 			    	password: $$('#password1').val()
 		        }, function(data) {
+                    console.log(data);
 		            if(data != '[]') {
+                        localStorage.setItem('first_use', '0');
                         mainView.router.loadPage('views/account.html');
 		            } else {
 		                myApp.alert("Couldn't log in");
