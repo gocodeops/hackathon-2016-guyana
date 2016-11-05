@@ -10,7 +10,7 @@
 
     // get transaction byID
     $app->get('/payments/{sender_id}', function ($request, $response, $args) {
-        $query = DB::table('payments')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+        $query = DB::table('view_payments')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
         // return the query
         print_r(json_encode($query));
     });

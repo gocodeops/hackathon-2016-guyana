@@ -108,6 +108,7 @@ myApp.onPageInit('payment', function (page) {
             receiver_id: merchant_id
         }, function(data){
             myApp.alert('Made a new payment of ' + $$("#amount").val());
+            mainView.router.back();
         });
     });
 });
@@ -137,7 +138,7 @@ myApp.onPageBeforeInit('payments', function (page) {
                   </div>\
                   <div class="card-content">\
                     <div class="card-content-inner">\
-                      <p>On this day you received an amount of '+data[i].amount+' for pension payment</p>\
+                      <p>On this day you payed '+data[i].name+' an amount of '+data[i].amount+'</p>\
                     </div>\
                   </div>\
                 </div>');
@@ -161,6 +162,26 @@ myApp.onPageBeforeInit('payments', function (page) {
 
         $$('#show_more_payments').on('click', function(){
             loopTransactions(start);
+        });
+    });
+});
+
+myApp.onPageInit('goods', function (page){
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/merchants', function(data){
+        data = JSON.parse(data);
+        $$.each(data, function(i,value){
+            $$("#goods").append('<div class="col-50 animated fadeInLeft">\
+            <div class="page-content">\
+              <a class="style_a" href="views/payment.html?code='+value.code+'">\
+                <div class="card">\
+                  <div class="card-header"><img class="icon_store" src="'+value.image_link+'" alt="placeholder+image"></div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner footer_cart font_size">'+ value.name +'</div>\
+                  </div>\
+                </div>\
+              </a>\
+            </div>\
+          </div>');
         });
     });
 });
