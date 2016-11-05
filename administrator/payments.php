@@ -24,9 +24,9 @@
 			                    <thead>
 			                    <tr>
 			                        <th>Amount</th>
-			                        <th>Sender</th>
-			                        <th>Receiver</th>
-			                        <th>Date</th>
+			                        <th>Sender ID Number</th>
+			                        <th>Receiver Code</th>
+			                        <th>Date of the payment</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>

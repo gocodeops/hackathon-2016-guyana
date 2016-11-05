@@ -32,15 +32,6 @@
                                         <form action="http://gocodeops.com/hackathon_guyana_app/public/transactions" method="POST" role="form" id="new">
 
                                             <div class="form-group">
-                                                <label for="">Select a user: </label>
-                                                <!-- <input type="text" class="form-control" name="receiver_id" placeholder="Input field"> -->
-                                                <select class="form-control m-b" id="receiver_id" name="receiver_id">
-
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
                                                 <label for="">Amount: </label>
                                                 <input type="text" class="form-control" name="amount" placeholder="Input field">
                                             </div>
