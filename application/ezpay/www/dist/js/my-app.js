@@ -13,3 +13,15 @@ myApp.onPageInit('index', function (page) {
     // console.log('triggered: index');
 
 }).trigger();
+
+function zero(val){
+	var value;
+	if (val <10) {
+		value = '0'+ val;
+	} else {
+	return val;
+	}
+	return value;
+};
+
+var notification_date;
