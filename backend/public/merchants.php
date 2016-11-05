@@ -4,11 +4,11 @@
 
         $query = DB::table('merchants')
             ->where('code', $_POST['code'])
-            ->where('password', sha1($_POST['password']));
-        if($query->count() > 0) {
-            echo 1;
+            ->where('password', sha1($_POST['password']))->get();
+        if ($query != "[]") {
+            echo json_encode($query);
         } else {
-            echo json_encode(array('success'=>'false'));
+            echo 0;
         }
 
     });
