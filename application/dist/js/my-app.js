@@ -8,8 +8,12 @@ var mainView = myApp.addView('.view-main');
 
 myApp.onPageInit('index', function (page) {
 
+<<<<<<< Updated upstream
     mainView.router.loadPage('views/transactions.html');
 
+=======
+    mainView.router.loadPage('views/login.html');
+>>>>>>> Stashed changes
 	// mainView.router.loadPage('views/account.html');
     // console.log('triggered: index');
 
