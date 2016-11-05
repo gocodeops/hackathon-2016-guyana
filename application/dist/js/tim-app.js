@@ -7,11 +7,12 @@ myApp.onPageInit('login', function (page) {
             id: $$('#id').val()
         }, function(data) {
             if(data == 1) {
+
+                //Set localStorage
+                localStorage.setItem('receiver_id', $$('#id').val());
+
             	$$('#login').attr('href', 'views/set_password.html');
             	$$('#login').click();
-
-            	//Set localStorage
-    			localStorage.setItem('receiver_id', $$('#id').val());
 
             } else {
                 myApp.alert("Couldn't log in");

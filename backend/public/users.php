@@ -60,4 +60,11 @@
         $query = DB::table('users')->where('id', htmlspecialchars($_POST['id']))->update($data);
         print_r(json_encode($query));
     });
+
+    //Get transaction with username
+    $app->get('/transactions_w_name', function ($request, $response, $args) {
+        $query = DB::table('v_transaction_w_name')->get();
+        // return the query
+        print_r(json_encode($query));
+    });
 ?>

@@ -29,11 +29,14 @@
                                         <h4 class="modal-title">Make a new transaction</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="http://gocodeops.com/hackathon_guyana_app/public/create/transactions" method="POST" role="form" id="new">
+                                        <form action="http://gocodeops.com/hackathon_guyana_app/public/transactions" method="POST" role="form" id="new">
 
                                             <div class="form-group">
                                                 <label for="">Place receiver ID here: </label>
-                                                <input type="text" class="form-control" name="receiver_id" placeholder="Input field">
+                                                <!-- <input type="text" class="form-control" name="receiver_id" placeholder="Input field"> -->
+                                                <select class="form-control m-b" id="receiver_id">
+                                                    <!-- <option value=""></option> -->
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
@@ -73,11 +76,22 @@
 <?php include 'footer.php'; ?>
 
 <script type="text/javascript">
-    $.get('http://gocodeops.com/hackathon_guyana_app/public/read/transactions', function(data){
+    $.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/transactions', function(data){
         data = $.parseJSON(data);
         console.log(data);
         $.each(data, function(i,value){
             $("#toAppend").append('<tr><td>'+value.receiver_id+'</td><td>'+value.amount+'</td><td>'+value.date+'</td></tr>');
+
+        });
+    });
+
+    $.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data){
+        data = $.parseJSON(data);
+        console.log(data);
+        $.each(data, function(i,value){
+
+            $("#receiver_id").append('<option value="'+value.id+'">'+value.firstname+' '+value.lastname+'</option>');
+
         });
     });
 
