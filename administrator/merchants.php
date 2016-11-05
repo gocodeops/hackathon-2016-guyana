@@ -25,7 +25,8 @@
 			                    <tr>
 			                        <th>Merchant name</th>
 			                        <th>Location</th>
-			                        <th>Code</th>
+                                    <th>Code</th>
+			                        <th>Action</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
@@ -56,6 +57,7 @@
                     <td>'+data[i].name+'</td>\
                     <td>'+data[i].location+'</td>\
                     <td>'+data[i].code+'</td>\
+                    <td><a href="#" class="btn btn-xs btn-primary    ">Show transactions</a></td>\
                 </tr>\
 			';
 

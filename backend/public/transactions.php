@@ -9,29 +9,39 @@
     // make a new transaction
     $app->post('/transactions', function($request, $response, $args){
         $data   = $request->getParsedBody();
-
         // split the data
         $amount = $data['amount'];
-        $receiver_id = $data['receiver_id'];
 
-        // make a log of this transaction
-        DB::table('transactions')->insert($data);
+        // get all users
+        $users = DB::table('users')->get();
 
-        // get current balance
-        $get_balance = DB::table('users')->where('id', $receiver_id)->get();
-        $user_balance = 0;
-        foreach ($get_balance as $value) {
-            $user_balance = $value->balance;
+        // loop through the users
+        foreach ($users as $key => $value) {
+            $receiver_id = $value->id;
+
+            $logdata = array(
+                'receiver_id' => $receiver_id,
+                'amount' => $amount
+                );
+            // make a log of this transaction
+            DB::table('transactions')->insert($logdata);
+
+            // get current balance
+            $get_balance = DB::table('users')->where('id', $receiver_id)->get();
+            $user_balance = 0;
+            foreach ($get_balance as $value) {
+                $user_balance = $value->balance;
+            }
+
+            $next_balance = $user_balance + $amount;
+            print_r($next_balance);
+
+            // update values
+            $dataUpdate = array(
+                'balance'    => $next_balance,
+            );
+            // update the balance of the user
+            DB::table('users')->where('id', $receiver_id)->update($dataUpdate);
         }
-
-        $next_balance = $user_balance + $amount;
-        print_r($next_balance);
-
-        // update values
-        $dataUpdate = array(
-            'balance'    => $next_balance,
-        );
-        // update the balance of the user
-        DB::table('users')->where('id', $receiver_id)->update($dataUpdate);
     });
 ?>

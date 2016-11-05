@@ -178,7 +178,7 @@ myApp.onPageInit('goods', function (page){
             <div class="page-content">\
               <a class="style_a" href="views/payment.html?code='+value.code+'">\
                 <div class="card">\
-                  <div class="card-header"><img class="icon_store" src="'+value.image_link+'" alt="placeholder+image"></div>\
+                  <div class="card-header"><img style="margin: auto;" class="icon_store" src="'+value.image_link+'" alt="placeholder+image"></div>\
                   <div class="card-content">\
                     <div class="card-content-inner footer_cart font_size">'+ value.name +'</div>\
                   </div>\
@@ -199,7 +199,7 @@ myApp.onPageInit('services', function(page){
                 <div class="page-content">\
                   <a class="style_a" href="views/payment.html?code='+value.code+'">\
                     <div class="card">\
-                      <div class="card-header"><img class="icon_store" src="'+value.image_link+'" alt="placeholder+image"></div>\
+                      <div class="card-header"><img class="icon_store" style="margin: auto;" src="'+value.image_link+'" alt="placeholder+image"></div>\
                       <div class="card-content">\
                         <div class="card-content-inner footer_cart font_size">'+ value.name +'</div>\
                       </div>\
