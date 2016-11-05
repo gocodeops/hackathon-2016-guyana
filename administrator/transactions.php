@@ -32,9 +32,10 @@
                                         <form action="http://gocodeops.com/hackathon_guyana_app/public/transactions" method="POST" role="form" id="new">
 
                                             <div class="form-group">
-                                                <label for="">Place receiver ID here: </label>
+                                                <label for="">Select a user: </label>
                                                 <!-- <input type="text" class="form-control" name="receiver_id" placeholder="Input field"> -->
-                                                <select class="form-control m-b" id="receiver_id">
+                                                <select class="form-control m-b" id="receiver_id" name="receiver_id">
+
                                                     <!-- <option value=""></option> -->
                                                 </select>
                                             </div>
@@ -106,8 +107,9 @@ formName.submit(function (ev) {
                 title: "Created",
                 text: "A new transactions has been made!",
                 type: "success"
+            }, function(){
+                location.reload();
             });
-            location.reload();
         }
     });
     ev.preventDefault();
