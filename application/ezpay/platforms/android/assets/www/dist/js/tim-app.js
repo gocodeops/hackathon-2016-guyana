@@ -1,6 +1,17 @@
 // tested and worked!
 myApp.onPageInit('login', function (page) {
 
+    // if (localStorage.getItem('receiver_id') != null) {
+    //     console.log("user exists");
+    //     if (localStorage.getItem('first_use') != null) {
+    //         console.log("first use exists");
+    //         mainView.router.loadPage('views/login_normaal.html')
+    //     }else{
+    //         mainView.router.loadPage('views/set_password.html');
+    //     }
+    // }
+    
+    
     $$('#login').submit(function(e) {
         e.preventDefault();
     	$$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/app_login',

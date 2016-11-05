@@ -2,10 +2,12 @@
 var receiver_id = localStorage.getItem('receiver_id');
 
 function getBalance(pageName){
+
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
         data = JSON.parse(data);
 
         var balance = parseInt(data.balance);
+
         balance = balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 
         $$("#balance_" + pageName).html(" $ "+ balance);
@@ -15,7 +17,10 @@ function getBalance(pageName){
 $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
-    getBalance(name);
+    if (receiver_id) {
+       getBalance(name); 
+    }
+    
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {

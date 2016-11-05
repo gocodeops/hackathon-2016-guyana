@@ -1,5 +1,6 @@
 var myApp = new Framework7({
 	material: true,
+	modalTitle: 'Ez-Pay'
 });
 
 var $$ = Dom7;
@@ -59,9 +60,7 @@ function onDeviceReady() {
 			console.log('notification_date: '+notification_date);
 
 			if (localStorage.getItem('receiver_id') != null) {
-
-					// check op ad
-					$$.post("http://gocodeops.com/hackathon_guyana_app/public/transactions"+notification_date,
+					$$.post("http://gocodeops.com/hackathon_guyana_app/public/notifications", {table: 'transactions', date: notification_date},
 					 function(data){
 					 	var data = JSON.parse(data);
 						// console.log('ads check ran with result: '+data);
