@@ -26,6 +26,16 @@ $$(document).on('pageInit', function (e) {
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
+
+    $.ajax({
+        method: 'POST',
+        url: 'http://gocodeops.com/hackathon_guyana_app/public/settoken',
+        data: {id: receiver_id, token: localStorage.getItem('device_token')},
+        success: function(){
+            console.log('token set!' + localStorage.getItem('device_token'));
+        }
+    });
+
     var data;
 
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){

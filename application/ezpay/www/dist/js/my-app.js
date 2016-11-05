@@ -24,7 +24,6 @@ myApp.onPageInit('index', function (page) {
         myApp.hideIndicator();
         mainView.router.loadPage('views/login.html');
     }
-
 }).trigger();
 
 

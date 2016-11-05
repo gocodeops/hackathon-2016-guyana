@@ -17,6 +17,7 @@ include 'users.php';
 include 'transactions.php';
 include 'notifications.php';
 include 'payments.php';
+include 'merchants.php';
 
 // run the application
 $app->run();

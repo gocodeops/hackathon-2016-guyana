@@ -11,4 +11,17 @@
         }
     });
 
+    $app->post('/gettoken', function($request, $response, $args){
+        $query = DB::table('users')->select('token')->where('id', $_POST['id'])->get();
+        print_r(json_encode($query));
+    });
+
+    $app->post('/settoken', function($request, $response, $args){
+
+        $data = array(
+            'token' => $_POST['token']
+        );
+
+        $query = DB::table('users')->where('id', $_POST['id'])->update($data);
+    });
 ?>
