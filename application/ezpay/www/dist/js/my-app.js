@@ -9,8 +9,6 @@ var mainView = myApp.addView('.view-main');
 
 myApp.onPageInit('index', function (page) {
 
-    mainView.router.loadPage('views/login.html');
-
 }).trigger();
 
 function zero(val){
