@@ -82,12 +82,28 @@
 
 	function assign(id) {
 		//Enable user's status
-		$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/assign', 
-			{
-				id: id
-			}, function(data) {
-			window.location = 'unassigned_users.php';
-		});
+		swal({
+            title: "Confirmation",
+            text: "Are you sure you want to enable user?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#b3ff99",
+            confirmButtonText: "Confirm",
+            //closeOnConfirm: false,
+            //showLoaderOnConfirm: true,
+            html: false
+        }, function (isConfirm) {
+            if (!isConfirm) {
+                //Cancel confirmation
+            } else {
+            	$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/assign',
+					{
+						id: id
+					}, function(data) {
+					window.location = 'unassigned_users.php';
+				});
+            }
+        });		
 	}
 
 </script>
