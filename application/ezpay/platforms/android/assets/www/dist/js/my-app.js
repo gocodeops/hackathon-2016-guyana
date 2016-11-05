@@ -1,5 +1,6 @@
 var myApp = new Framework7({
 	material: true,
+	modalTitle: 'Ez-Pay'
 });
 
 var $$ = Dom7;
