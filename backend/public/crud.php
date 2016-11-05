@@ -5,7 +5,7 @@
         if (isset($args['id'])) {
             $query = DB::table($args['table'])->find($args['id']);
         } else {
-            $query = DB::table($args['table'])->get();
+            $query = DB::table($args['table'])->orderBy('id', DESC)->get();
         }
         // return the query
         print_r(json_encode($query));
