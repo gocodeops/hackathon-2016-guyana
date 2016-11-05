@@ -16,6 +16,7 @@ include 'crud.php';
 include 'users.php';
 include 'transactions.php';
 include 'notifications.php';
+include 'payments.php';
 
 // run the application
 $app->run();
