@@ -9,7 +9,17 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.codeops.ezpay"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.codeops.ezpay"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.codeops.ezpay"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.codeops.ezpay"
+        }
+    }
 }
