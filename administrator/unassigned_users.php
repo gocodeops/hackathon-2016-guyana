@@ -61,7 +61,7 @@
 			var id = data[i].id;
 
 			if(active == 0) {
-				active_status = '<a href="assign?id='+id+'"><button class="btn btn-xs btn-success">Enable</button></a>';
+				active_status = '<button onclick="assign(\''+id+'\')" class="btn btn-xs btn-success">Enable</button>';
 			}
 
 			var content = '\
@@ -79,4 +79,15 @@
 
 		});
 	});
+
+	function assign(id) {
+		//Enable user's status
+		$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/assign', 
+			{
+				id: id
+			}, function(data) {
+			window.location = 'unassigned_users.php';
+		});
+	}
+
 </script>

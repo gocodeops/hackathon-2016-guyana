@@ -53,7 +53,7 @@ myApp.onPageInit('set_password', function (page) {
                     console.log(data);
 		            if(data != '[]') {
                         localStorage.setItem('first_use', '0');
-                        mainView.router.loadPage('views/account.html');
+                        mainView.router.loadPage('views/transactions.html');
 		            } else {
 		                myApp.alert("Couldn't log in");
 		            }

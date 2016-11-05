@@ -17,11 +17,20 @@ function getBalance(pageName){
 $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
+<<<<<<< HEAD
     // if(receiver_id) {
     if(localStorage.getItem('receiver_id')) {
+=======
+    if (localStorage.getItem('receiver_id')) {
+>>>>>>> origin/master
        getBalance(name);
        console.log("Balance processing");
     }
+<<<<<<< HEAD
+=======
+    console.log('init page: ' + name);
+
+>>>>>>> origin/master
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
