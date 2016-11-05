@@ -5,7 +5,7 @@
 
 <!-- Main Wrapper -->
 <div id="wrapper">
-	
+
 	<div class="row">
         <div class="col-lg-12 text-center m-t-md">
             <h2>
@@ -53,7 +53,7 @@
 <script type="text/javascript">
 	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/unassigned', function(data) {
 		data = $.parseJSON(data);
-		
+
 		$.each(data, function(i, value) {
 			var active = data[i].active;
 			var active_status = '';
@@ -61,7 +61,7 @@
 			var id = data[i].id;
 
 			if(active == 0) {
-				active_status = '<a href="assign?id='+id+'"><button class="btn btn-primary">Enable</button></a>';
+				active_status = '<a href="assign?id='+id+'"><button class="btn btn-xs btn-success">Enable</button></a>';
 			}
 
 			var content = '\
@@ -76,7 +76,7 @@
 			';
 
 			$('tbody').append(content);
-			
+
 		});
 	});
 </script>

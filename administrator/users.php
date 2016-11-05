@@ -5,7 +5,7 @@
 
 <!-- Main Wrapper -->
 <div id="wrapper">
-	
+
 	<div class="row">
         <div class="col-lg-12 text-center m-t-md">
             <h2>
@@ -54,7 +54,7 @@
 <script type="text/javascript">
 	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data) {
 		data = $.parseJSON(data);
-		
+
 		$.each(data, function(i, value) {
 			var active = data[i].active;
 			var active_status = '';
@@ -65,7 +65,7 @@
 				active_status = '<span class="label label-success">Active</span>';
 			} else if(active == 0) {
 				active_status = '<span class="label label-warning">Not active</span>';
-			}		
+			}
 
 			if(active == 1) {
 				active_count++;
@@ -84,7 +84,7 @@
 
 			$('tbody').append(content);
 			$('.panel-footer').html(active_count+' out of '+total_users+' active users');
-			
+
 		});
 	});
 </script>

@@ -27,7 +27,7 @@
         if($query->count() > 0) {
             echo 1;
         } else {
-            echo 0;
+            echo json_encode(array('success'=>'false'));
         }
 
     });
@@ -55,7 +55,8 @@
     //Create password
     $app->post('/app_create_password', function($request, $response, $args){
         $data = array(
-            'password' => sha1($_POST['password'])
+            'password' => sha1($_POST['password']),
+            'first_use' => '0'
         );
         $query = DB::table('users')->where('id', htmlspecialchars($_POST['id']))->update($data);
         print_r(json_encode($query));
