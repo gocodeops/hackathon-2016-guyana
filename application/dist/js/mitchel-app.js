@@ -15,46 +15,63 @@ $$(document).on('pageInit', function (e) {
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
-    var append_limit = 3;
+    var data;
 
-    function getTransactions(limit){
-        myApp.showIndicator();
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
+        $$("#transactions").html('');
+        data = JSON.parse(data);
 
-        $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
-            $$("#transactions").html('');
-            data = JSON.parse(data);
+        console.log(data);
+        var append_limit = 3;
+        var which = 0;
+        var start_i = 0;
 
-            $$.each(data, function(i,value){
-                // console.log(i);
+        loopTransactions(start_i);
 
-                if (i < limit) {
-                    // console.log("kleiner dan limit");
-                    $$("#transactions").append('<div class="card facebook-card animated fadeInUp">\
-                      <div class="card-header">\
-                        <div class="facebook-name">Pension Payment</div>\
-                        <div class="facebook-date">'+value.date+'</div>\
-                      </div>\
-                      <div class="card-content">\
-                        <div class="card-content-inner">\
-                          <p>On this day you received an amount of '+value.amount+' for pension payment</p>\
-                        </div>\
-                      </div>\
-                    </div>');
+        // return last i
+        function loopTransactions(start_i){
+            for (var i = start_i; i < append_limit; i++) {
+                start_i = i;
+                $$("#transactions").append('<div style="display:none;" class="card facebook-card animated fadeIn">\
+                  <div class="card-header">\
+                    <div class="facebook-name">Pension Payment</div>\
+                    <div class="facebook-date">'+data[i].date+'</div>\
+                  </div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner">\
+                      <p>On this day you received an amount of '+data[i].amount+' for pension payment</p>\
+                    </div>\
+                  </div>\
+                </div>');
+
+                if ( i == (append_limit - 1) ) {
+                    showTransactions();
                 }
-            });
+            }
+
+            console.log("append limit:" + append_limit);
+            console.log("start_i:" + start_i);
+            append_limit += 3;
+            console.log("append limit:" + append_limit);
+            console.log("start_i:" + start_i);
+        }
+
+
+        function showTransactions(){
+            $$("#transactions").find('.card').eq(which).show().addClass('animated fadeIn');
+            which++;
+            if ( which < append_limit ) {
+                setTimeout(showTransactions, 500);
+            }
+        }
+
+        $$('#show_more').on('click', function(){
+            loopTransactions(start_i);
         });
-
-        append_limit += 3;
-        console.log(append_limit);
-
-        myApp.hideIndicator();
-    }
-
-    getTransactions(append_limit);
-
-    $$('#show_more').on('click', function(){
-        getTransactions(append_limit);
     });
+
+
+
 
 });
 
