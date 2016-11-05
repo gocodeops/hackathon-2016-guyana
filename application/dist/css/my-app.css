@@ -5,12 +5,13 @@
 .text-left{
 	text-align: left;
 }
+.icon{
+	font-size: 30px;
+}
 .app_icon{
 	width: 200px;
 	height: 200px;
-	border-radius: 150px;
 	margin:20% 0 0 0;
-	background-color: #ACBBE6;
 }
 
 .form_login{
@@ -18,12 +19,10 @@
 }
 .icon{
 	font-size: 30px;
+	color: #607d8b;
 }
 .placeholder_login{
 	margin: 0 0 0 13% !important;
-}
-.button{
-	text-align: center;
 }
 .letter_size{
 	font-size: 20px !important;
@@ -48,6 +47,15 @@
 }
 .icon_login{
 	float: left;
-	font-size: 30px;
-	margin: 5px;
+	margin: 0 15% 0 1%;
+}
+#sign-in, #set-pass{
+	text-align: left;
+}
+@media screen and (orientation: landscape) {
+	.app_icon{
+		width: 100px;
+		height: 100px;
+		margin: 5% 0 0 0;
+	}
 }
