@@ -16,9 +16,10 @@ function getBalance(pageName){
 $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
-    if (receiver_id) {
+    if (localStorage.getItem('receiver_id')) {
        getBalance(name);
     }
+    console.log('init page: ' + name);
 
 });
 
