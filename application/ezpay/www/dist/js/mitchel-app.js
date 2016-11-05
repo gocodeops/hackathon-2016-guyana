@@ -2,6 +2,7 @@
 var receiver_id = localStorage.getItem('receiver_id');
 
 function getBalance(pageName){
+    receiver_id = localStorage.getItem('receiver_id');
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
         data = JSON.parse(data);
 
@@ -16,10 +17,11 @@ function getBalance(pageName){
 $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
-    if (receiver_id) {
+    // if(receiver_id) {
+    if(localStorage.getItem('receiver_id')) {
        getBalance(name);
+       console.log("Balance processing");
     }
-
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
