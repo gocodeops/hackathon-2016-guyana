@@ -15,7 +15,7 @@ $$(document).on('pageInit', function (e) {
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
-    // myApp.showPreloader();
+    myApp.showIndicator();
     setInterval(function(){
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
@@ -35,7 +35,7 @@ myApp.onPageBeforeInit('transactions', function (page) {
                 </div>');
             });
         });
-        // myApp.hidePreloader();
+        myApp.hideIndicator();
     }, 2000);
 });
 
