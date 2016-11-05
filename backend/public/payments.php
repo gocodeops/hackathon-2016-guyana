@@ -10,9 +10,13 @@
 
     // get transaction byID
     $app->get('/payments/{sender_id}', function ($request, $response, $args) {
-        $query = DB::table('view_payments')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+        $query_merchants = DB::table('view_payments_merchants')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+
+        $query_services = DB::table('view_payments_services')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+
+        $final_array = array_merge($query_merchants, $query_services);
         // return the query
-        print_r(json_encode($query));
+        print_r(json_encode($final_array));
     });
 
     // make a new payment

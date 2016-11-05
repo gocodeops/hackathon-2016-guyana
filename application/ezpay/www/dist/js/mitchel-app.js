@@ -2,7 +2,6 @@
 var receiver_id = localStorage.getItem('receiver_id');
 
 function getBalance(pageName){
-
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
         data = JSON.parse(data);
 
@@ -108,6 +107,7 @@ myApp.onPageInit('payment', function (page) {
             receiver_id: merchant_id
         }, function(data){
             myApp.alert('Made a new payment of ' + $$("#amount").val());
+            getBalance(page.name);
             mainView.router.back();
         });
     });
@@ -133,7 +133,7 @@ myApp.onPageBeforeInit('payments', function (page) {
                 start = i+1;
                 $$("#payments").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
                   <div class="card-header">\
-                    <div class="facebook-name">Pension Payment</div>\
+                    <div class="facebook-name">Payment</div>\
                     <div class="facebook-date">'+data[i].date+'</div>\
                   </div>\
                   <div class="card-content">\
