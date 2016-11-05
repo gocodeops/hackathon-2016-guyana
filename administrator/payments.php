@@ -14,37 +14,9 @@
         </div>
     </div>
 
-
-    <div class="modal fade" id="modal-id">
-    	<div class="modal-dialog">
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    				<h4 class="modal-title">Make payment</h4>
-    			</div>
-    			<div class="modal-body">
-    				
-					<div class="form-group">
-						<label for="">Amount</label>
-						<input type="text" class="form-control" id="amount" placeholder="10.00">
-					</div>
-
-    			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    				<button type="button" id="make_payment" class="btn btn-primary">Proceed</button>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-
     <div class="content animate-panel">
         <div class="row">
 		    <div class="col-lg-12" style="">
-
-		    <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Make payment</a>
-		    	<br><br>
-
 		        <div class="hpanel">
 		            <div class="panel-body">
 		                <div class="table-responsive">
@@ -93,12 +65,4 @@
 
 		});
 	});
-
-	
-	//Make payment
- //    swal({
-	//     title: "Success!",
-	//     text: "Payment has been made.",
-	//     type: "success"
-	// });
 </script>
