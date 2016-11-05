@@ -56,7 +56,11 @@
             if(data == 1) {
                 window.location = 'users.php';
             } else {
-                alert("Couldn't log in");
+                swal({
+                    title: "Error.",
+                    text: "Couldn't log in! Please try again.",
+                    // type: "basic"
+                });
             }
         });
 
