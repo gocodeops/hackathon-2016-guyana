@@ -15,6 +15,7 @@ $app = new \Slim\App;
 include 'crud.php';
 include 'users.php';
 include 'transactions.php';
+include 'notifications.php';
 
 // run the application
 $app->run();
