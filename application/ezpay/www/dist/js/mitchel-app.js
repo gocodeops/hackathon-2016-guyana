@@ -18,9 +18,9 @@ $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
     if (receiver_id) {
-       getBalance(name); 
+       getBalance(name);
     }
-    
+
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
@@ -74,10 +74,6 @@ myApp.onPageBeforeInit('transactions', function (page) {
             loopTransactions(start);
         });
     });
-
-
-
-
 });
 
 myApp.onPageBeforeInit('account', function (page) {
@@ -97,5 +93,95 @@ myApp.onPageBeforeInit('account', function (page) {
         $$("#email").html(data.email);
 
         $$(".account-info").show().addClass("animated fadeInLeft");
+    });
+});
+
+myApp.onPageInit('payment', function (page) {
+    merchant_id = page.query.code;
+
+    $$("#payment").submit(function(e){
+        e.preventDefault();
+
+        $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/payments', {
+            amount: $$("#amount").val(),
+            sender_id: receiver_id,
+            receiver_id: merchant_id
+        }, function(data){
+            myApp.alert('Made a new payment of ' + $$("#amount").val());
+            mainView.router.back();
+        });
+    });
+});
+
+myApp.onPageBeforeInit('payments', function (page) {
+    var data;
+
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
+        $$("#payments").html('');
+        data = JSON.parse(data);
+        console.log(data);
+        var append_limit = 3;
+        var which = 0;
+        var start = 0;
+
+        loopTransactions(start);
+
+        // return last i
+        function loopTransactions(start_i){
+
+            for (var i = start_i; i < append_limit; i++) {
+                start = i+1;
+                $$("#payments").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
+                  <div class="card-header">\
+                    <div class="facebook-name">Pension Payment</div>\
+                    <div class="facebook-date">'+data[i].date+'</div>\
+                  </div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner">\
+                      <p>On this day you payed '+data[i].name+' an amount of '+data[i].amount+'</p>\
+                    </div>\
+                  </div>\
+                </div>');
+
+                if ( start == (append_limit - 1) ) {
+                    showTransactions();
+                }
+            }
+
+            append_limit += 3;
+        }
+
+
+        function showTransactions(){
+            $$("#payments").find('.card').eq(which).show().addClass('animated fadeIn');
+            which++;
+            if ( which < start ) {
+                setTimeout(showTransactions, 500);
+            }
+        }
+
+        $$('#show_more_payments').on('click', function(){
+            loopTransactions(start);
+        });
+    });
+});
+
+myApp.onPageInit('goods', function (page){
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/merchants', function(data){
+        data = JSON.parse(data);
+        $$.each(data, function(i,value){
+            $$("#goods").append('<div class="col-50 animated fadeInLeft">\
+            <div class="page-content">\
+              <a class="style_a" href="views/payment.html?code='+value.code+'">\
+                <div class="card">\
+                  <div class="card-header"><img class="icon_store" src="'+value.image_link+'" alt="placeholder+image"></div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner footer_cart font_size">'+ value.name +'</div>\
+                  </div>\
+                </div>\
+              </a>\
+            </div>\
+          </div>');
+        });
     });
 });
