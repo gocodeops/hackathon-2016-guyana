@@ -36,7 +36,7 @@ $app->get('/read/{table}[/{id}]', function ($request, $response, $args) {
 $app->post('/create/{table}', function($request, $response, $args){
     $data   = $request->getParsedBody();
     // echo $data;
-    $query  = DB::table($args['table'])->insert($data);
+    $query = DB::table($args['table'])->insert($data);
     print_r(json_encode($query));
 });
 
@@ -104,6 +104,33 @@ $app->get('/transactions/{receiver_id}', function ($request, $response, $args) {
     // return the query
     print_r(json_encode($query));
 });
+
+/**
+* Application routes
+*/
+//Login
+$app->post('/app_login', function ($request, $response, $args) {
+    $query = DB::table('users')
+        ->where('id', $_POST['id']);
+    if($query->count() > 0) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+});
+
+//Create password
+$app->post('/app_create_password', function($request, $response, $args){
+    $data = array(
+        'password' => sha1($_POST['password'])
+    );
+    $query = DB::table('users')->where('id', htmlspecialchars($_POST['id']))->update($data);
+    print_r(json_encode($query));
+});
+
+/**
+* End Application routes
+*/
 
 // run the application
 $app->run();

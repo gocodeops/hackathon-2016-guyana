@@ -58,7 +58,7 @@
             } else {
                 alert("Couldn't log in");
             }
-    });
+        });
 
     });
 </script>

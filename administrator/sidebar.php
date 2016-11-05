@@ -8,6 +8,7 @@
         </div>
         <ul class="nav" id="side-menu">
             <li><a href="home"> <span class="nav-label">Dashboard</span></a></li>
+            <li><a href="admins"> <span class="nav-label">Admins</span></a></li>
             <li><a href="users"> <span class="nav-label">Users</span></a></li>
             <li><a href="unassigned_users"> <span class="nav-label">Assign user</span></a></li>
             <li><a href="transactions"><span class="nav-label">Transactions</span></a></li>
