@@ -74,10 +74,6 @@ myApp.onPageBeforeInit('transactions', function (page) {
             loopTransactions(start);
         });
     });
-
-
-
-
 });
 
 myApp.onPageBeforeInit('account', function (page) {
@@ -112,6 +108,59 @@ myApp.onPageInit('payment', function (page) {
             receiver_id: merchant_id
         }, function(data){
             myApp.alert('Made a new payment of ' + $$("#amount").val());
+        });
+    });
+});
+
+myApp.onPageBeforeInit('payments', function (page) {
+    var data;
+
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
+        $$("#payments").html('');
+        data = JSON.parse(data);
+        console.log(data);
+        var append_limit = 3;
+        var which = 0;
+        var start = 0;
+
+        loopTransactions(start);
+
+        // return last i
+        function loopTransactions(start_i){
+
+            for (var i = start_i; i < append_limit; i++) {
+                start = i+1;
+                $$("#payments").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
+                  <div class="card-header">\
+                    <div class="facebook-name">Pension Payment</div>\
+                    <div class="facebook-date">'+data[i].date+'</div>\
+                  </div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner">\
+                      <p>On this day you received an amount of '+data[i].amount+' for pension payment</p>\
+                    </div>\
+                  </div>\
+                </div>');
+
+                if ( start == (append_limit - 1) ) {
+                    showTransactions();
+                }
+            }
+
+            append_limit += 3;
+        }
+
+
+        function showTransactions(){
+            $$("#payments").find('.card').eq(which).show().addClass('animated fadeIn');
+            which++;
+            if ( which < start ) {
+                setTimeout(showTransactions, 500);
+            }
+        }
+
+        $$('#show_more_payments').on('click', function(){
+            loopTransactions(start);
         });
     });
 });

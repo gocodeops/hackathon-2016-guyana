@@ -8,6 +8,13 @@
 
 	});
 
+    // get transaction byID
+    $app->get('/payments/{sender_id}', function ($request, $response, $args) {
+        $query = DB::table('payments')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+        // return the query
+        print_r(json_encode($query));
+    });
+
     // make a new payment
     $app->post('/new/payments', function($request, $response, $args){
         $data   = $request->getParsedBody();
