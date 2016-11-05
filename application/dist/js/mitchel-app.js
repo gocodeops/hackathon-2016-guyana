@@ -2,6 +2,7 @@
 var receiver_id = localStorage.getItem('receiver_id');
 
 myApp.onPageBeforeInit('transactions', function (page) {
+    myApp.showPreloader();
     setInterval(function(){
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
@@ -21,6 +22,7 @@ myApp.onPageBeforeInit('transactions', function (page) {
                 </div>');
             });
         });
+        myApp.hidePreloader();
     }, 2000);
 });
 
