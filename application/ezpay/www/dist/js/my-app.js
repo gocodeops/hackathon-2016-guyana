@@ -9,7 +9,7 @@ var mainView = myApp.addView('.view-main');
 
 myApp.onPageInit('index', function (page) {
 
-    mainView.router.loadPage('views/login.html');
+    mainView.router.loadPage('views/payment.html');
 
 }).trigger();
 
@@ -74,11 +74,11 @@ function onDeviceReady() {
 						    // cordova.plugins.notification.badge.increase();
 						}else{
 							console.log('no new transactions');
-						}	
+						}
 					});
 
 			}
-				
+
 		}
 
 		setTimeout(function(){ checkTransactions(); }, 1000);
@@ -92,7 +92,7 @@ function onDeviceReady() {
     	    // check which notification was clicked
     	    // notification.id
 		    mainView.router.loadPage('views/msp_nieuws.html');
-	    
+
 	}, this)
 
 }

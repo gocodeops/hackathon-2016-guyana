@@ -18,9 +18,9 @@ $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
     if (receiver_id) {
-       getBalance(name); 
+       getBalance(name);
     }
-    
+
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
@@ -97,5 +97,21 @@ myApp.onPageBeforeInit('account', function (page) {
         $$("#email").html(data.email);
 
         $$(".account-info").show().addClass("animated fadeInLeft");
+    });
+});
+
+myApp.onPageInit('payment', function (page) {
+    merchant_id = page.query.code;
+
+    $$("#payment").submit(function(e){
+        e.preventDefault();
+
+        $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/payments', {
+            amount: $$("#amount").val(),
+            sender_id: receiver_id,
+            receiver_id: merchant_id
+        }, function(data){
+            myApp.alert('Made a new payment of ' + $$("#amount").val());
+        });
     });
 });
