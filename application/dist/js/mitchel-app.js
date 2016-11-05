@@ -15,9 +15,11 @@ $$(document).on('pageInit', function (e) {
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
-    myApp.showIndicator();
+    var append_limit = 3;
 
     function getTransactions(limit){
+        myApp.showIndicator();
+
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
             data = JSON.parse(data);
@@ -41,10 +43,19 @@ myApp.onPageBeforeInit('transactions', function (page) {
                 }
             });
         });
+
+        append_limit += 3;
+        console.log(append_limit);
+
+        myApp.hideIndicator();
     }
 
-    getTransactions(1);
-    myApp.hideIndicator();
+    getTransactions(append_limit);
+
+    $$('#show_more').on('click', function(){
+        getTransactions(append_limit);
+    });
+
 });
 
 myApp.onPageBeforeInit('account', function (page) {
