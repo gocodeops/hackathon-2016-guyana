@@ -4,7 +4,11 @@ var receiver_id = localStorage.getItem('receiver_id');
 function getBalance(pageName){
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
         data = JSON.parse(data);
-        $$("#balance_" + pageName).html(data.balance);
+
+        var balance = parseInt(data.balance);
+        balance = balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+
+        $$("#balance_" + pageName).html(" $ "+ balance);
     });
 }
 
@@ -21,18 +25,18 @@ myApp.onPageBeforeInit('transactions', function (page) {
         $$("#transactions").html('');
         data = JSON.parse(data);
 
-        console.log(data);
         var append_limit = 3;
         var which = 0;
-        var start_i = 0;
+        var start = 0;
 
-        loopTransactions(start_i);
+        loopTransactions(start);
 
         // return last i
         function loopTransactions(start_i){
+
             for (var i = start_i; i < append_limit; i++) {
-                start_i = i;
-                $$("#transactions").append('<div style="display:none;" class="card facebook-card animated fadeIn">\
+                start = i+1;
+                $$("#transactions").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
                   <div class="card-header">\
                     <div class="facebook-name">Pension Payment</div>\
                     <div class="facebook-date">'+data[i].date+'</div>\
@@ -44,29 +48,25 @@ myApp.onPageBeforeInit('transactions', function (page) {
                   </div>\
                 </div>');
 
-                if ( i == (append_limit - 1) ) {
+                if ( start == (append_limit - 1) ) {
                     showTransactions();
                 }
             }
 
-            console.log("append limit:" + append_limit);
-            console.log("start_i:" + start_i);
             append_limit += 3;
-            console.log("append limit:" + append_limit);
-            console.log("start_i:" + start_i);
         }
 
 
         function showTransactions(){
             $$("#transactions").find('.card').eq(which).show().addClass('animated fadeIn');
             which++;
-            if ( which < append_limit ) {
+            if ( which < start ) {
                 setTimeout(showTransactions, 500);
             }
         }
 
         $$('#show_more').on('click', function(){
-            loopTransactions(start_i);
+            loopTransactions(start);
         });
     });
 
@@ -90,5 +90,7 @@ myApp.onPageBeforeInit('account', function (page) {
         $$("#housenumber").html(data.housenumber);
         $$("#telephone").html(data.telephone);
         $$("#email").html(data.email);
+
+        $$(".account-info").show().addClass("animated fadeInLeft");
     });
 });
