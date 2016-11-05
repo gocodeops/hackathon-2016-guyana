@@ -1,8 +1,15 @@
 // localStorage.setItem('receiver_id', 'FO003090M');
 var receiver_id = localStorage.getItem('receiver_id');
 
+$$(document).on('pageInit', function (e) {
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
+        data = JSON.parse(data);
+        $$("#balance").html(data.balance);
+    });
+});
+
 myApp.onPageBeforeInit('transactions', function (page) {
-    myApp.showPreloader();
+    // myApp.showPreloader();
     setInterval(function(){
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
@@ -22,7 +29,7 @@ myApp.onPageBeforeInit('transactions', function (page) {
                 </div>');
             });
         });
-        myApp.hidePreloader();
+        // myApp.hidePreloader();
     }, 2000);
 });
 
