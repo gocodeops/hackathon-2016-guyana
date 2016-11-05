@@ -42,9 +42,6 @@
 .font_size{
 	font-size: 30px;
 }
-.test{
-	line-height: 0px;
-}
 .icon_login{
 	float: left;
 	margin: 0 15% 0 1%;
@@ -61,4 +58,7 @@
 }
 .icon_white{
 	color: white;
+}
+.page_top{
+	padding-top: 50px;
 }
