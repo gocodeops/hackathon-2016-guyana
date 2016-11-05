@@ -29,7 +29,7 @@
                                         <h4 class="modal-title">Make a new transaction</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="http://gocodeops.com/hackathon_guyana_app/public/create/transactions" method="POST" role="form" id="new">
+                                        <form action="http://gocodeops.com/hackathon_guyana_app/public/transactions" method="POST" role="form" id="new">
 
                                             <div class="form-group">
                                                 <label for="">Place receiver ID here: </label>
