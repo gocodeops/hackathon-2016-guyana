@@ -1,4 +1,4 @@
-localStorage.setItem('receiver_id', 'FO003090M');
+// localStorage.setItem('receiver_id', 'FO003090M');
 var receiver_id = localStorage.getItem('receiver_id');
 
 myApp.onPageBeforeInit('transactions', function (page) {
