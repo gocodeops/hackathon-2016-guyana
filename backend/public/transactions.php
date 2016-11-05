@@ -32,6 +32,6 @@
             'balance'    => $next_balance,
         );
         // update the balance of the user
-        $query  = DB::table('users')->where('id', $receiver_id)->update($dataUpdate);
+        DB::table('users')->where('id', $receiver_id)->update($dataUpdate);
     });
 ?>
