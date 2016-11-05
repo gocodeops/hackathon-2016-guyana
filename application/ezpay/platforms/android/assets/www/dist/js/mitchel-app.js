@@ -21,7 +21,7 @@ $$(document).on('pageInit', function (e) {
        getBalance(name);
        console.log("Balance processing");
     }
-    log('init page: ' + name);
+    console.log('init page: ' + name);
 
 });
 

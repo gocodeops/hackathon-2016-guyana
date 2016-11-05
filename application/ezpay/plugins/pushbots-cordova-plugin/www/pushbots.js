@@ -63,7 +63,7 @@ PushbotsPlugin.prototype.initialize = function(app_id, options) {
 				that.fire("notification:clicked", data.data);
 			}
 		}else{
-			console.log(data);
+			console.log("registration id: "+data);
 		}
 	};
 	
