@@ -31,4 +31,7 @@
         <icon src="www/res/icon/xxhdpi.png" density="xxhdpi" /> <!-- 144 -->
         <icon src="www/res/icon/xxxhdpi.png" density="xxxhdpi" /> <!-- 192 -->
     </platform>
+    <!-- <gap:plugin name="pushbots-cordova-plugin" spec="^1.4.0" source="npm" />
+    <preference name="phonegap-version" value="cli-6.3.0" />
+    <preference name="android-build-tool" value="gradle" /> -->
 </widget>

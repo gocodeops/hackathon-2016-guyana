@@ -34,6 +34,14 @@ module.exports = [
             "cordova.plugins.notification.local.core",
             "plugin.notification.local.core"
         ]
+    },
+    {
+        "id": "pushbots-cordova-plugin.PushbotsPlugin",
+        "file": "plugins/pushbots-cordova-plugin/www/pushbots.js",
+        "pluginId": "pushbots-cordova-plugin",
+        "clobbers": [
+            "PushbotsPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -42,7 +50,9 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.0",
     "cordova-plugin-device": "1.1.3",
     "cordova-plugin-app-event": "1.2.0",
-    "de.appplant.cordova.plugin.local-notification": "0.8.4"
+    "de.appplant.cordova.plugin.local-notification": "0.8.4",
+    "cordova-plugin-console": "1.0.4",
+    "pushbots-cordova-plugin": "1.4.0"
 };
 // BOTTOM OF METADATA
 });
