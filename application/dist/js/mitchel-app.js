@@ -1,11 +1,17 @@
 // localStorage.setItem('receiver_id', 'FO003090M');
 var receiver_id = localStorage.getItem('receiver_id');
 
-$$(document).on('pageInit', function (e) {
+function getBalance(pageName){
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/read/users/' + receiver_id, function(data){
         data = JSON.parse(data);
-        $$("#balance").html(data.balance);
+        $$("#balance_" + pageName).html(data.balance);
     });
+}
+
+$$(document).on('pageInit', function (e) {
+    var page = e.detail.page;
+    var name = page.name;
+    getBalance(name);
 });
 
 myApp.onPageBeforeInit('transactions', function (page) {
@@ -14,7 +20,7 @@ myApp.onPageBeforeInit('transactions', function (page) {
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
             data = JSON.parse(data);
-            console.log(data);
+            // console.log(data);
             $$.each(data, function(i,value){
                 $$("#transactions").append('<div class="card facebook-card">\
                   <div class="card-header">\
