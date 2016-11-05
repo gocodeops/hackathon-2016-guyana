@@ -16,27 +16,35 @@ $$(document).on('pageInit', function (e) {
 
 myApp.onPageBeforeInit('transactions', function (page) {
     myApp.showIndicator();
-    setInterval(function(){
+
+    function getTransactions(limit){
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
             $$("#transactions").html('');
             data = JSON.parse(data);
-            // console.log(data);
+
             $$.each(data, function(i,value){
-                $$("#transactions").append('<div class="card facebook-card">\
-                  <div class="card-header">\
-                    <div class="facebook-name">Pension Payment</div>\
-                    <div class="facebook-date">'+value.date+'</div>\
-                  </div>\
-                  <div class="card-content">\
-                    <div class="card-content-inner">\
-                      <p>On this day you received an amount of '+value.amount+' for pension payment</p>\
-                    </div>\
-                  </div>\
-                </div>');
+                // console.log(i);
+
+                if (i < limit) {
+                    // console.log("kleiner dan limit");
+                    $$("#transactions").append('<div class="card facebook-card animated fadeInUp">\
+                      <div class="card-header">\
+                        <div class="facebook-name">Pension Payment</div>\
+                        <div class="facebook-date">'+value.date+'</div>\
+                      </div>\
+                      <div class="card-content">\
+                        <div class="card-content-inner">\
+                          <p>On this day you received an amount of '+value.amount+' for pension payment</p>\
+                        </div>\
+                      </div>\
+                    </div>');
+                }
             });
         });
-        myApp.hideIndicator();
-    }, 2000);
+    }
+
+    getTransactions(1);
+    myApp.hideIndicator();
 });
 
 myApp.onPageBeforeInit('account', function (page) {
