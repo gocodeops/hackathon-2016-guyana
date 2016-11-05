@@ -46,9 +46,9 @@
         $query = DB::table('users')
             ->where('id', $_POST['id']);
         if($query->count() > 0) {
-            echo 1;
+            print_r(json_encode($query->get()));
         } else {
-            echo 0;
+            echo json_encode(array('success'=>'false'));
         }
     });
 

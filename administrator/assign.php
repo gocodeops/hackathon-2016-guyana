@@ -79,10 +79,6 @@
 		    </div>
 		</div> <!-- Row -->
 
-			<br><br>
-
-		<div class="alert alert-success hide"><i class="fa fa-bolt"></i> Adding password was successful</div>
-
     </div> <!-- Content -->
 </div> <!-- Wrapper -->
 <?php include 'footer.php'; ?>
@@ -108,7 +104,7 @@
 					id: id, 
 					password: password1
 				}, function(data) {
-				console.log(data);
+				window.location = 'unassigned_users.php';
 			});
 		}
 	});

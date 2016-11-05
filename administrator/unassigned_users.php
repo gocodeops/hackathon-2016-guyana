@@ -13,34 +13,6 @@
             </h2>
         </div>
     </div>
-	
-	<div class="normalheader transition animated fadeIn">
-	    <div class="hpanel">
-	        <div class="panel-body">
-	            <a class="small-header-action" href="">
-	                <div class="clip-header">
-	                    <i class="fa fa-arrow-up"></i>
-	                </div>
-	            </a>
-
-	            <div id="hbreadcrumb" class="pull-right m-t-lg">
-	                <ol class="hbreadcrumb breadcrumb">
-	                    <li><a href="index.html">Unassigned users</a></li>
-	                    <li>
-	                        <span>Tables</span>
-	                    </li>
-	                    <li class="active">
-	                        <span>Tables design</span>
-	                    </li>
-	                </ol>
-	            </div>
-	            <h2 class="font-light m-b-xs">
-	                Tables design
-	            </h2>
-	            <small>Examples of various designs of tables.</small>
-	        </div>
-	    </div>
-	</div>
 
     <div class="content animate-panel">
         <div class="row">

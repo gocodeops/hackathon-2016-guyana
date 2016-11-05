@@ -6,15 +6,17 @@ myApp.onPageInit('login', function (page) {
         {
             id: $$('#id').val()
         }, function(data) {
-            if(data == 1) {
+            data = JSON.parse(data);
+            if(data) {
 
                 //Set localStorage
                 localStorage.setItem('receiver_id', $$('#id').val());
+                localStorage.setItem('first_use', data[0].first_use);
 
-            	$$('#login').attr('href', 'views/set_password.html');
-            	$$('#login').click();
+                $$('#login').attr('href', 'views/set_password.html');
+                $$('#login').click();
 
-            } else {
+            } else if(data.success == 'false'){
                 myApp.alert("Couldn't log in");
             }
         });
@@ -39,7 +41,6 @@ myApp.onPageInit('set_password', function (page) {
 		            id: $$('#id').val(),
 			    	password: $$('#password1').val()
 		        }, function(data) {
-		        	console.log(data);
 		            if(data) {
 		            	$$('#login').attr('href', 'views/account.html');
 		            	$$('#login').click();
