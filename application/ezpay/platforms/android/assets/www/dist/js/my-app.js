@@ -228,10 +228,10 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
 
     var data;
 
-    if (usertype == 'user') {
+    startTransaction = (function() {
+        if (usertype == 'user') {
         var data;
 
-        startTransaction = (function() {
             $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
             $$("#payments").html('');
             data = JSON.parse(data);
@@ -280,9 +280,8 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
                 loopTransactions(start);
             });
         });
-    });
 
-    }else if (usertype == 'merchant') {
+    } else if (usertype == 'merchant') {
         var data;
 
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/merchant/payments/' + merchant_code, function(data){
@@ -338,6 +337,8 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
             });
         });
     }
+    });
+
     startTransaction(); //Reload
 });
 
@@ -372,11 +373,15 @@ myApp.onPageInit('person2person', function (page) {
             }, function(data) {
                 if(data == 405) {
                     myApp.alert("Please verify the Sender ID or Receiver ID.");
+                } else if(data == 403) {
+                    myApp.alert("Insufficient balance.");
                 } else {
                     myApp.confirm('Are you sure you want to make payment to '+$$('#u2u_receiver_id').val()+'?',
                       function () {
 
                         myApp.alert("User to user payment has been made.");
+                        mainView.router.loadPage('views/my-transactions.html');
+
 
                       },
                       function () {
@@ -412,7 +417,7 @@ myApp.onPageInit('invoices', function (page) {
 myApp.onPageInit('my-transactions', function (page) {
     var ptrContent = $$('.pull-to-refresh-content');
     ptrContent.on('refresh', function (e){
-        
+
         // myApp.alert('het gaat'),
         myApp.pullToRefreshDone(ptrContent);
         startTransaction(); //Reload
@@ -483,7 +488,7 @@ myApp.onPageInit('income', function (page) {
                 loopTransactions(start);
             });
         });
-        
+
     });
 
     startMyIncome(); //Reload
@@ -507,66 +512,90 @@ myApp.onPageInit('make-invoice', function (page) {
 myApp.onPageInit('invoices', function (page) {
     startMyInvoices = (function() {
 
-        $$.get('http://gocodeops.com/hackathon_guyana_app/public/invoice/get/' + receiver_id,
-            function(data){
-            data = JSON.parse(data);
-            console.log(data);
+        if (usertype == "user") {
+            $$.get('http://gocodeops.com/hackathon_guyana_app/public/invoice/get/' + receiver_id,
+                function(data){
+                data = JSON.parse(data);
+                console.log(data);
 
-            $$("#append_invoices").html('');
+                $$("#append_invoices").html('');
 
-            $$.each(data, function(i,value){
-                $$("#append_invoices").append('<li class="accordion-item">\
-                      <a href="" class="item-link item-content">\
-                          <div class="item-inner">\
-                              <div class="item-title">Invoice '+value.name+'</div>\
-                              <div class="item-after">'+value.date+'</div>\
+                $$.each(data, function(i,value){
+                    $$("#append_invoices").append('<li class="accordion-item">\
+                          <a href="" class="item-link item-content">\
+                              <div class="item-inner">\
+                                  <div class="item-title">Invoice '+value.name+'</div>\
+                                  <div class="item-after">'+value.date+'</div>\
+                              </div>\
+                          </a>\
+                          <div class="accordion-item-content content-block">\
+                            <p>A payment of <span class="bold">'+value.amount+'</span> is to be made</p>\
+                            <p class="buttons-row">\
+                              <a id="status-change-accept" sender_id="'+value.sender_id+'" receiver_id="'+value.receiver_id+'" amount="'+value.amount+'" status="1" invoice_id="'+value.id+'" class="button color-green">Accept</a>\
+                              <a id="status-change-decline" status="0" invoice_id="'+value.id+'" class="button color-red">Decline</a>\
+                            </p>\
                           </div>\
-                      </a>\
-                      <div class="accordion-item-content content-block">\
-                        <p>A payment of <span class="bold">'+value.amount+'</span> is to be made</p>\
-                        <p class="buttons-row">\
-                          <a id="status-change-accept" sender_id="'+value.sender_id+'" receiver_id="'+value.receiver_id+'" amount="'+value.amount+'" status="1" invoice_id="'+value.id+'" class="button color-green">Accept</a>\
-                          <a id="status-change-decline" status="0" invoice_id="'+value.id+'" class="button color-red">Decline</a>\
-                        </p>\
-                      </div>\
-                  </li>');
-            });
+                      </li>');
+                });
 
-            $$('[id^="status-change"]').click(function(){
-                amount = $$(this).attr('amount');
-                sender_id = $$(this).attr('sender_id');
-                receiver_id = $$(this).attr('receiver_id');
-                status = $$(this).attr('status');
-                id = $$(this).attr('invoice_id');
-                if (status == 1) {
-                    $$.post('http://gocodeops.com/hackathon_guyana_app/public/update/invoice', {
-                        amount: amount,
-                        sender_id: sender_id,
-                        receiver_id: receiver_id,
-                        status: status,
-                        id: id
-                    }, function(data){
-                        $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/payments', {
+                $$('[id^="status-change"]').click(function(){
+                    amount = $$(this).attr('amount');
+                    sender_id = $$(this).attr('sender_id');
+                    receiver_id = $$(this).attr('receiver_id');
+                    status = $$(this).attr('status');
+                    id = $$(this).attr('invoice_id');
+                    if (status == 1) {
+                        $$.post('http://gocodeops.com/hackathon_guyana_app/public/update/invoice', {
                             amount: amount,
-                            sender_id: receiver_id,
-                            receiver_id: sender_id,
+                            sender_id: sender_id,
+                            receiver_id: receiver_id,
+                            status: status,
+                            id: id
                         }, function(data){
-                            // myApp.alert(data);
-                            myApp.alert("Invoice succesfully paid!");
+                            $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/payments', {
+                                amount: amount,
+                                sender_id: receiver_id,
+                                receiver_id: sender_id,
+                            }, function(data){
+                                // myApp.alert(data);
+                                myApp.alert("Invoice succesfully paid!");
+                                mainView.router.loadPage('views/my-transactions.html');
+                            });
+                        });
+                    } else {
+                        $$.post('http://gocodeops.com/hackathon_guyana_app/public/update/invoice', {
+                            id: $$(this).attr('invoice_id'),
+                            status: $$(this).attr('status')
+                        }, function(data){
+                            myApp.alert("Invoice declined!");
                             mainView.router.loadPage('views/my-transactions.html');
                         });
-                    });
-                } else {
-                    $$.post('http://gocodeops.com/hackathon_guyana_app/public/update/invoice', {
-                        id: $$(this).attr('invoice_id'),
-                        status: $$(this).attr('status')
-                    }, function(data){
-                        myApp.alert("Invoice declined!");
-                        mainView.router.loadPage('views/my-transactions.html');
-                    });
-                }
-             });
-        });
+                    }
+                 });
+            });
+        } else if (usertype == "merchant"){
+            $$.get('http://gocodeops.com/hackathon_guyana_app/public/merchants/invoice/' + merchant_code,
+                function(data){
+                data = JSON.parse(data);
+                console.log(data);
+
+                $$("#append_invoices").html('');
+
+                $$.each(data, function(i,value){
+                    $$("#append_invoices").append('<li class="accordion-item">\
+                          <a href="" class="item-link item-content">\
+                              <div class="item-inner">\
+                                  <div class="item-title">Invoice to '+value.receiver_id+'</div>\
+                                  <div class="item-after">'+value.date+'</div>\
+                              </div>\
+                          </a>\
+                          <div class="accordion-item-content content-block">\
+                            <p>A payment of <span class="bold">'+value.amount+'</span> is to be made</p>\
+                          </div>\
+                      </li>');
+                });
+            });
+        }
     });
     startMyInvoices(); //Reload
 });
