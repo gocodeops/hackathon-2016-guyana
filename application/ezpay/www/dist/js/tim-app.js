@@ -80,3 +80,22 @@ myApp.onPageInit('login_normal', function (page) {
         });
     });
 });
+
+//Logout -> Forget ID & everything
+$$('#logout').on('click', function () {
+    myApp.confirm('Are you sure you want to log out?',
+      function () {
+
+        //Empty localStorage
+        localStorage.removeItem('first_use');
+        localStorage.removeItem('receiver_id');
+
+        //Go to index
+        mainView.router.loadPage('views/login.html');
+
+      },
+      function () {
+        //Continue logging out...
+      }
+    );
+});  
