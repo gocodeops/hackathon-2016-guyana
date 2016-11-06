@@ -359,6 +359,36 @@ $$('#logout').on('click', function () {
     );
 });
 
+//User-To-User payment
+myApp.onPageInit('person2person', function (page) {
+
+    $$('#user2user').submit(function(e) {
+        e.preventDefault();
+
+        $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/user_to_user_payment', {
+                amount: $$('#u2u_amount').val(),
+                sender_id: localStorage.getItem('receiver_id'),
+                receiver_id: $$('#u2u_receiver_id').val()
+            }, function(data) {
+                if(data == 405) {
+                    myApp.alert("Please verify the Sender ID or Receiver ID.");
+                } else {
+                    myApp.confirm('Are you sure you want to make payment to '+$$('#u2u_receiver_id').val()+'?',
+                      function () {
+
+                        myApp.alert("User to user payment has been made.");
+
+                      },
+                      function () {
+                        //Cancel dialog
+                      }
+                    );
+                }
+        });
+    });
+
+});
+
 myApp.onPageInit('income', function (page) {
     var ptrContent = $$('.pull-to-refresh-content');
     ptrContent.on('refresh', function (e){

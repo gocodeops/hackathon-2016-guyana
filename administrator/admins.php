@@ -28,6 +28,7 @@
 			                        <th>Lastname</th>
 			                        <th>District</th>
 			                        <th>Street Address</th>
+			                        <th>Control access</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
@@ -48,11 +49,18 @@
 <?php include 'footer.php'; ?>
 
 <script type="text/javascript">
-	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data) {
+	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/view_admins', function(data) {
 		data = $.parseJSON(data);
 		
 		$.each(data, function(i, value) {
-			var active = data[i].active;
+			var user_type = data[i].user_type;;
+			var access = '';
+
+			if(user_type == 'user') {
+				access = '<button class-"btn btn-xs button-success">Set as admin</button>';
+			} else if(user_type == 'admin') {
+				access = '<button class-"btn btn-xs button-warning">Set as user</button>';
+			}
 
 			var content = '\
 				<tr>\
@@ -60,6 +68,7 @@
                     <td>'+data[i].firstname+'</td>\
                     <td>'+data[i].lastname+'</td>\
                     <td>'+data[i].district+'</td>\
+                    <td>'+data[i].address+'</td>\
                     <td>'+data[i].address+'</td>\
                 </tr>\
 			';

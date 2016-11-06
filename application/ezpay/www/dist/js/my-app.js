@@ -228,10 +228,10 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
 
     var data;
 
-    if (usertype == 'user') {
+    startTransaction = (function() {
+        if (usertype == 'user') {
         var data;
 
-        startTransaction = (function() {
             $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
             $$("#payments").html('');
             data = JSON.parse(data);
@@ -280,9 +280,8 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
                 loopTransactions(start);
             });
         });
-    });
 
-    }else if (usertype == 'merchant') {
+    } else if (usertype == 'merchant') {
         var data;
 
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/merchant/payments/' + merchant_code, function(data){
@@ -338,6 +337,8 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
             });
         });
     }
+    });
+
     startTransaction(); //Reload
 });
 
@@ -357,6 +358,40 @@ $$('#logout').on('click', function () {
         //Continue logging out...
       }
     );
+});
+
+//User-To-User payment
+myApp.onPageInit('person2person', function (page) {
+
+    $$('#user2user').submit(function(e) {
+        e.preventDefault();
+
+        $$.post('http://gocodeops.com/hackathon_guyana_app/public/new/user_to_user_payment', {
+                amount: $$('#u2u_amount').val(),
+                sender_id: localStorage.getItem('receiver_id'),
+                receiver_id: $$('#u2u_receiver_id').val()
+            }, function(data) {
+                if(data == 405) {
+                    myApp.alert("Please verify the Sender ID or Receiver ID.");
+                } else if(data == 403) {
+                    myApp.alert("Insufficient balance.");
+                } else {
+                    myApp.confirm('Are you sure you want to make payment to '+$$('#u2u_receiver_id').val()+'?',
+                      function () {
+
+                        myApp.alert("User to user payment has been made.");
+                        mainView.router.loadPage('views/my-transactions.html');
+
+
+                      },
+                      function () {
+                        //Cancel dialog
+                      }
+                    );
+                }
+        });
+    });
+
 });
 
 myApp.onPageInit('income', function (page) {

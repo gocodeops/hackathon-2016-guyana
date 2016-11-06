@@ -112,6 +112,11 @@
         $next_balance = $user_balance - $amount;
         // print_r($next_balance);
 
+        if($next_balance < 0) {
+            echo 403;
+            exit();
+        }
+
         // update values
         $dataUpdate = array(
             'balance'    => $next_balance,

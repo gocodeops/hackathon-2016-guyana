@@ -58,6 +58,12 @@
 					    text: "Please verify the Sender ID or Receiver ID.",
 					    type: "warning"
 					});
+				} else if(data == 403) {
+					swal({
+					    title: "Transaction error!",
+					    text: "Insufficient balance.",
+					    type: "warning"
+					});
 				} else {
 					swal({
 					    title: "Success!",
