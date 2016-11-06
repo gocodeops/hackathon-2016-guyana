@@ -15,6 +15,7 @@
             <li><a href="services"><span class="nav-label">Services</span></a></li>
             <li><a href="invoices"><span class="nav-label">Invoices</span></a></li>
             <li><a href="transactions"><span class="nav-label">Pension Transaction</span></a></li>
+            <li><a href="user2user"><span class="nav-label">User-To-User Transaction</span></a></li>
             <li><a href="payments"><span class="nav-label">User Payments</span></a></li>
             <!-- <li><a href="transaction_log"><span class="nav-label">Transaction Log</span></a></li> -->
             <li><a href="index" ="uitloggen"><span class="nav-label">Logout</span></a></li>
