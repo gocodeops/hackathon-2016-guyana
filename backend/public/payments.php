@@ -56,5 +56,21 @@
         );
         // update the balance of the user
         DB::table('users')->where('id', $sender_id)->update($dataUpdate);
+
+        // get merchant balance
+        $merchant_balance_query = DB::table('merchants')->where('code', $receiver_id)->get();
+        // print_r($merchant_balance_query);
+        $merchant_balance = 0;
+        foreach ($merchant_balance_query as $value) {
+            $merchant_balance = $value->balance;
+        }
+        $merchant_next_balance = $merchant_balance + $amount;
+
+        // update values
+        $merchant_data_update = array(
+            'balance'    => $merchant_next_balance,
+        );
+        // update the balance of the user
+        DB::table('merchants')->where('code', $receiver_id)->update($merchant_data_update);
     });
 ?>
