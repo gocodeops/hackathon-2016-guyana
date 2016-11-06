@@ -37,4 +37,6 @@ function onDeviceReady() {
         console.log("Registration Id:" + token);
     });
 
+    
+
 }
