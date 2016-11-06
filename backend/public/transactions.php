@@ -21,7 +21,8 @@
 
             $logdata = array(
                 'receiver_id' => $receiver_id,
-                'amount' => $amount
+                'amount' => $amount,
+                'organization_id' => '1'
                 );
             // make a log of this transaction
             DB::table('transactions')->insert($logdata);

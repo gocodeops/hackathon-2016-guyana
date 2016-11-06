@@ -402,6 +402,7 @@ myApp.onPageInit('income', function (page) {
         },2000);
         myApp.pullToRefreshDone(ptrContent),
         startMyIncome(); //Reload
+        getBalance(page.name, usertype);
     })
 });
 
@@ -411,6 +412,7 @@ myApp.onPageInit('invoices', function (page) {
 
         myApp.pullToRefreshDone(ptrContent);
         startMyInvoices();
+        getBalance(page.name, usertype);
     })
 });
 
@@ -421,6 +423,7 @@ myApp.onPageInit('my-transactions', function (page) {
         // myApp.alert('het gaat'),
         myApp.pullToRefreshDone(ptrContent);
         startTransaction(); //Reload
+        getBalance(page.name, usertype);
     })
 });
 
