@@ -104,3 +104,10 @@
 	margin-left: 5px;
 	font-size: 18px;
 }
+span.label{
+	color: grey;
+}
+span.amount{
+	font-weight: bold;
+	font-size: 16px;
+}
