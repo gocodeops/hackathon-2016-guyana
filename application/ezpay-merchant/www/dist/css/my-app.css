@@ -29,6 +29,9 @@
 .fs-24{
 	font-size: 24px !important;
 }
+.fs-36{
+	font-size: 36px !important;
+}
 .icon{
 	font-size: 30px;
 }
@@ -110,4 +113,7 @@ span.label{
 span.amount{
 	font-weight: bold;
 	font-size: 16px;
+}
+input#amount{
+	padding: 20px 0;
 }
