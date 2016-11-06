@@ -7,7 +7,11 @@ var $$ = Dom7;
 
 var mainView = myApp.addView('.view-main');
 
+var merchant_id, merchant_code;
+
 myApp.onPageInit('index', function (page) {
+    merchant_id = localStorage.getItem('merchant_id');
+    merchant_code = localStorage.getItem('merchant_code');
 
 	// myApp.showIndicator();
     if (localStorage.getItem('merchant_code')) {
@@ -30,6 +34,10 @@ myApp.onPageInit('login', function (page) {
                 console.log(data);
                 localStorage.setItem('merchant_id', data[0].id);
                 localStorage.setItem('merchant_code', data[0].code);
+
+                merchant_id = localStorage.getItem('merchant_id');
+                merchant_code = localStorage.getItem('merchant_code');
+
                 mainView.router.loadPage('views/my-transactions.html');
             } else {
                 myApp.alert("Password or Code is incorrect!");
@@ -38,11 +46,7 @@ myApp.onPageInit('login', function (page) {
     });
 });
 
-merchant_id = localStorage.getItem('merchant_id');
-merchant_code = localStorage.getItem('merchant_code');
-
 function getBalance(pageName){
-    receiver_id = localStorage.getItem('receiver_id');
     $$.get('http://gocodeops.com/hackathon_guyana_app/public/merchants/get/' + merchant_code, function(data){
         data = JSON.parse(data);
         // console.log(data);
@@ -57,10 +61,8 @@ function getBalance(pageName){
 $$(document).on('pageInit', function (e) {
     var page = e.detail.page;
     var name = page.name;
-    if (localStorage.getItem('receiver_id')) {
-       getBalance(name);
-       // console.log("Balance processing");
-    }
+    getBalance(name);
+    console.log("Balance processing");
     // console.log('init page: ' + name);
 
 });
