@@ -14,15 +14,27 @@
 
         $query_services = DB::table('view_payments_services')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
 
-        $final_array = array_merge($query_merchants, $query_services);
-        function compare_first_key_date($a, $b) {
-            @$a_keys = array_keys($a);
-            @$a_date = strtotime($a_keys[0]);
-            @$b_keys = array_keys($b);
-            @$b_date = strtotime($b_keys[0]);
-            return $a_date - $b_date;
+        $query_users = DB::table('view_payments_users')->where('sender_id', $args['sender_id'])->orderBy('id', DESC)->get();
+
+        $final_array = array_merge($query_merchants, $query_services, $query_users);
+        // $final_final_array = array_merge($final_array, $query_users);
+        // function compare_first_key_date($a, $b) {
+        //     @$a_keys = array_keys($a);
+        //     @$a_date = strtotime($a_keys[0]);
+        //     @$b_keys = array_keys($b);
+        //     @$b_date = strtotime($b_keys[0]);
+        //     return $a_date - $b_date;
+        // }
+        // uasort($final_array, 'compare_first_key_date');
+        function compare_keys($a, $b) {
+            if($a->id == $b->id) {
+                return 0;
+            }
+            return ($a->id > $b->id) ? -1 : 1;
         }
-        uasort($final_array, 'compare_first_key_date');
+
+        usort($final_array, 'compare_keys');
+        // print_r($final_array);
         print_r(json_encode($final_array));
     });
 

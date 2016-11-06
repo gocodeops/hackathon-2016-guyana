@@ -25,11 +25,13 @@ function checkUser() {
         usertype = 'user';
         receiver_id = localStorage.getItem('receiver_id');
         $$('.item-link.merchant').hide();
+        console.log(usertype);
     }else if(localStorage.getItem('merchant_id')){
         usertype = 'merchant';
         merchant_id = localStorage.getItem('merchant_id');
         merchant_code = localStorage.getItem('merchant_code');
         $$('.item-link.user').hide();
+        console.log(usertype);
     }
 }
 
@@ -250,6 +252,12 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
 
                     var amount = parseInt(data[i].amount);
                     amount = amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+
+                    if (data[i].name == undefined) {
+                        name = data[i].receiver_id;
+                    } else {
+                        name = data[i].name;
+                    }
                     $$("#payments").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
                       <div class="card-header">\
                         <div class="facebook-name">Payment</div>\
@@ -257,7 +265,7 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
                       </div>\
                       <div class="card-content">\
                         <div class="card-content-inner">\
-                          <p>On this day you payed '+data[i].name+' an amount of <span class="amount">$'+amount+'</span></p>\
+                          <p>On this day you payed '+name+' an amount of <span class="amount">$'+amount+'</span></p>\
                         </div>\
                       </div>\
                     </div>');
