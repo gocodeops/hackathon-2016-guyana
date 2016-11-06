@@ -66,8 +66,6 @@ $$(document).on('pageInit', function (e) {
 myApp.onPageInit('index', function (page) {
 	myApp.showIndicator();
 
-    mainView.router.loadPage('views/invoices.html');
-
     var first_use;
 
     if(localStorage.getItem('first_use')) {
