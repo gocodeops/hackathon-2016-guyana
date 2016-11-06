@@ -247,6 +247,9 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
 
                 for (var i = start_i; i < append_limit; i++) {
                     start = i+1;
+
+                    var amount = parseInt(data[i].amount);
+                    amount = amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
                     $$("#payments").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
                       <div class="card-header">\
                         <div class="facebook-name">Payment</div>\
@@ -254,7 +257,7 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
                       </div>\
                       <div class="card-content">\
                         <div class="card-content-inner">\
-                          <p>On this day you payed '+data[i].name+' an amount of '+data[i].amount+'</p>\
+                          <p>On this day you payed '+data[i].name+' an amount of <span class="amount">$'+amount+'</span></p>\
                         </div>\
                       </div>\
                     </div>');
