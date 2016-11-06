@@ -94,8 +94,8 @@ myApp.onPageInit('index', function (page) {
 //Login routing
 myApp.onPageInit('user-login', function(page) {
 
-    myApp.hideIndicator();    
-    
+    myApp.hideIndicator();
+
     $$('#login').submit(function(e) {
         e.preventDefault();
         $$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/app_login',
@@ -123,7 +123,7 @@ myApp.onPageInit('user-login', function(page) {
             }
         });
     });
-    
+
 });
 
 //Create password on first use
@@ -348,7 +348,7 @@ $$('#logout').on('click', function () {
         //Continue logging out...
       }
     );
-}); 
+});
 
 // deviceready function for cordova
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -358,5 +358,58 @@ function onDeviceReady() {
 
     window.plugins.PushbotsPlugin.getRegistrationId(function(token){
         console.log("Registration Id:" + token);
-    });  
+    });
 }
+
+myApp.onPageInit('income', function (page) {
+    var data;
+
+    $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
+        $$("#income").html('');
+        data = JSON.parse(data);
+        console.log(data);
+        var append_limit = 3;
+        var which = 0;
+        var start = 0;
+
+        loopTransactions(start);
+
+        // return last i
+        function loopTransactions(start_i){
+
+            for (var i = start_i; i < append_limit; i++) {
+                start = i+1;
+                $$("#income").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
+                  <div class="card-header">\
+                    <div class="facebook-name">Payment</div>\
+                    <div class="facebook-date">'+data[i].date+'</div>\
+                  </div>\
+                  <div class="card-content">\
+                    <div class="card-content-inner">\
+                      <p>On this day you received an amount of '+data[i].amount+' from '+data[i].name+' </p>\
+                    </div>\
+                  </div>\
+                </div>');
+
+                if ( start == (append_limit - 1) ) {
+                    showTransactions();
+                }
+            }
+
+            append_limit += 3;
+        }
+
+
+        function showTransactions(){
+            $$("#income").find('.card').eq(which).show().addClass('animated fadeIn');
+            which++;
+            if ( which < start ) {
+                setTimeout(showTransactions, 500);
+            }
+        }
+
+        $$('#show_more_income').on('click', function(){
+            loopTransactions(start);
+        });
+    });
+});
