@@ -10,7 +10,12 @@ var mainView = myApp.addView('.view-main');
 myApp.onPageInit('index', function (page) {
 
 	// myApp.showIndicator();
-    mainView.router.loadPage('views/my-transactions.html');
+    if (localStorage.getItem('merchant_code')) {
+        mainView.router.loadPage('views/my-transactions.html');
+    } else {
+        mainView.router.loadPage('views/login.html');
+    }
+
 
 }).trigger();
 
