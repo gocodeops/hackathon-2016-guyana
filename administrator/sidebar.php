@@ -10,7 +10,7 @@
             <!-- <li><a href="home"> <span class="nav-label">Dashboard</span></a></li> -->
             <!-- <li><a href="admins"> <span class="nav-label">Admins</span></a></li> -->
             <li><a href="users"> <span class="nav-label">Users</span></a></li>
-            <li><a href="unassigned_users"> <span class="nav-label">Assign user</span></a></li>
+            <li><a href="assigned_users"> <span class="nav-label">Assign user</span></a></li>
             <li><a href="merchants"><span class="nav-label">Merchants</span></a></li>
             <li><a href="services"><span class="nav-label">Services</span></a></li>
             <li><a href="transactions"><span class="nav-label">Pension Transaction</span></a></li>

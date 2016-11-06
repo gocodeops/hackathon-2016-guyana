@@ -13,7 +13,7 @@
         $amount = $data['amount'];
 
         // get all users
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->where('active', '1')->get();
 
         // loop through the users
         foreach ($users as $key => $value) {
@@ -41,7 +41,7 @@
                 'balance'    => $next_balance,
             );
             // update the balance of the user
-            DB::table('users')->where('id', $receiver_id)->update($dataUpdate);
+            DB::table('users')->where('id', $receiver_id)->where('active', '1')->update($dataUpdate);
         }
     });
 ?>

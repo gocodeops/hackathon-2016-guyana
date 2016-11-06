@@ -55,10 +55,11 @@
 	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data) {
 		data = $.parseJSON(data);
 
+		var active_count = 0;
+
 		$.each(data, function(i, value) {
 			var active = data[i].active;
 			var active_status = '';
-			var active_count = 0;
 			var total_users = data.length;
 
 			if(active == 1) {

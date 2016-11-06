@@ -27,7 +27,7 @@ $$(document).on('pageInit', function (e) {
 
 myApp.onPageBeforeInit('transactions', function (page) {
 
-    $.ajax({
+    $$.ajax({
         method: 'POST',
         url: 'http://gocodeops.com/hackathon_guyana_app/public/settoken',
         data: {id: receiver_id, token: localStorage.getItem('device_token')},

@@ -17,6 +17,15 @@
         print_r(json_encode($query));
     });
 
+    // Unassign
+    $app->post('/unassign', function($request, $response, $args){
+        $data = array(
+            'active' => '0'
+        );
+        $query = DB::table('users')->where('id', htmlspecialchars($_POST['id']))->update($data);
+        print_r(json_encode($query));
+    });
+
     // login route
     $app->post('/login', function ($request, $response, $args) {
 
