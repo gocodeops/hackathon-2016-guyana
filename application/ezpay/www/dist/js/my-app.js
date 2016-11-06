@@ -15,6 +15,11 @@ myApp.onPageInit('*', function (page){
     checkUser();
 });
 
+//Global variables for pullToRefresh
+var startMyIncome,
+    startMyInvoices,
+    startTransaction;
+
 function checkUser() {
     if (localStorage.getItem('receiver_id')) {
         usertype = 'user';
@@ -226,7 +231,8 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
     if (usertype == 'user') {
         var data;
 
-        $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
+        startTransaction = (function() {
+            $$.get('http://gocodeops.com/hackathon_guyana_app/public/payments/' + receiver_id, function(data){
             $$("#payments").html('');
             data = JSON.parse(data);
             console.log(data);
@@ -274,6 +280,7 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
                 loopTransactions(start);
             });
         });
+    });
 
     }else if (usertype == 'merchant') {
         var data;
@@ -331,7 +338,7 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
             });
         });
     }
-
+    startTransaction(); //Reload
 });
 
 //Logout -> Forget ID & everything
@@ -358,8 +365,8 @@ myApp.onPageInit('income', function (page) {
         setTimeout(function(){
 
         },2000);
-        myApp.alert('het gaat'),
-        myApp.pullToRefreshDone(ptrContent)
+        myApp.pullToRefreshDone(ptrContent),
+        startMyIncome(); //Reload
     })
 });
 
@@ -376,8 +383,9 @@ myApp.onPageInit('my-transactions', function (page) {
     var ptrContent = $$('.pull-to-refresh-content');
     ptrContent.on('refresh', function (e){
         
-        myApp.alert('het gaat'),
-        myApp.pullToRefreshDone(ptrContent)
+        // myApp.alert('het gaat'),
+        myApp.pullToRefreshDone(ptrContent);
+        startTransaction(); //Reload
     })
 });
 
@@ -396,52 +404,58 @@ function onDeviceReady() {
 myApp.onPageInit('income', function (page) {
     var data;
 
-    $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
-        $$("#income").html('');
-        data = JSON.parse(data);
-        console.log(data);
-        var append_limit = 3;
-        var which = 0;
-        var start = 0;
+    startMyIncome = (function() {
+        $$.get('http://gocodeops.com/hackathon_guyana_app/public/transactions/' + receiver_id, function(data){
+            $$("#income").html('');
+            data = JSON.parse(data);
+            console.log(data);
+            var append_limit = 3;
+            var which = 0;
+            var start = 0;
 
-        loopTransactions(start);
+            loopTransactions(start);
 
-        // return last i
-        function loopTransactions(start_i){
+            // return last i
+            function loopTransactions(start_i){
 
-            for (var i = start_i; i < append_limit; i++) {
-                start = i+1;
-                $$("#income").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
-                  <div class="card-header">\
-                    <div class="facebook-name">Payment</div>\
-                    <div class="facebook-date">'+data[i].date+'</div>\
-                  </div>\
-                  <div class="card-content">\
-                    <div class="card-content-inner">\
-                      <p>On this day you received an amount of '+data[i].amount+' from '+data[i].name+' </p>\
-                    </div>\
-                  </div>\
-                </div>');
+                for (var i = start_i; i < append_limit; i++) {
+                    start = i+1;
+                    $$("#income").append('<div style="display:none;" class="card facebook-card animated fadeInLeft">\
+                      <div class="card-header">\
+                        <div class="facebook-name">Payment</div>\
+                        <div class="facebook-date">'+data[i].date+'</div>\
+                      </div>\
+                      <div class="card-content">\
+                        <div class="card-content-inner">\
+                          <p>On this day you received an amount of '+data[i].amount+' from '+data[i].name+' </p>\
+                        </div>\
+                      </div>\
+                    </div>');
 
-                if ( start == (append_limit - 1) ) {
-                    showTransactions();
+                    if ( start == (append_limit - 1) ) {
+                        showTransactions();
+                    }
+                }
+
+                append_limit += 3;
+            }
+
+
+            function showTransactions(){
+                $$("#income").find('.card').eq(which).show().addClass('animated fadeIn');
+                which++;
+                if ( which < start ) {
+                    setTimeout(showTransactions, 500);
                 }
             }
 
-            append_limit += 3;
-        }
-
-
-        function showTransactions(){
-            $$("#income").find('.card').eq(which).show().addClass('animated fadeIn');
-            which++;
-            if ( which < start ) {
-                setTimeout(showTransactions, 500);
-            }
-        }
-
-        $$('#show_more_income').on('click', function(){
-            loopTransactions(start);
+            $$('#show_more_income').on('click', function(){
+                loopTransactions(start);
+            });
         });
+        
     });
+
+    startMyIncome(); //Reload
+
 });
