@@ -73,4 +73,67 @@
         // update the balance of the user
         DB::table('merchants')->where('code', $receiver_id)->update($merchant_data_update);
     });
+
+
+    //Make User-To-User payment
+    $app->post('/new/user_to_user_payment', function($request, $response, $args){
+        $data   = $request->getParsedBody();
+
+        // print_r($data);
+        // split the data
+        $amount = $data['amount'];
+        $sender_id = $data['sender_id'];
+        $receiver_id = $data['receiver_id'];
+
+        // make a log of this transaction
+        DB::table('payments')->insert($data);
+
+        // get current balance
+        $get_balance = DB::table('users')->where('id', $sender_id)->get();
+
+        //Validate if sender ID exists
+        if(DB::table('users')->where('id', $sender_id)->count() == 0) {
+            echo 405;
+            exit();
+        }
+
+        $user_balance = 0;
+        foreach ($get_balance as $value) {
+            $user_balance = $value->balance;
+        }
+
+        //Validate if receiver ID exists
+        if(DB::table('users')->where('id', $receiver_id)->count() == 0) {
+            echo 405;
+            exit();
+        }
+
+        // print_r($user_balance);
+        $next_balance = $user_balance - $amount;
+        // print_r($next_balance);
+
+        // update values
+        $dataUpdate = array(
+            'balance'    => $next_balance,
+        );
+        // update the balance of the user
+        DB::table('users')->where('id', $sender_id)->update($dataUpdate);
+
+        // get user balance
+        $user_balance_query = DB::table('users')->where('id', $receiver_id)->get();
+
+        // print_r($user_balance_query);
+        $user_balance = 0;
+        foreach ($user_balance_query as $value) {
+            $user_balance = $value->balance;
+        }
+        $user_next_balance = $user_balance + $amount;
+
+        // update values
+        $user_data_update = array(
+            'balance'    => $user_next_balance,
+        );
+        // update the balance of the user
+        DB::table('users')->where('id', $receiver_id)->update($user_data_update);
+    });
 ?>
