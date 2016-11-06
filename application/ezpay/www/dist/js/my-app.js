@@ -66,6 +66,8 @@ $$(document).on('pageInit', function (e) {
 myApp.onPageInit('index', function (page) {
 	myApp.showIndicator();
 
+    mainView.router.loadPage('views/invoices.html');
+
     var first_use;
 
     if(localStorage.getItem('first_use')) {
@@ -331,6 +333,24 @@ myApp.onPageBeforeInit('my-transactions', function (page) {
     }
 
 });
+
+//Logout -> Forget ID & everything
+$$('#logout').on('click', function () {
+    myApp.confirm('Are you sure you want to log out?',
+      function () {
+
+        //Empty localStorage
+        localStorage.clear();
+
+        //Go to index
+        mainView.router.loadPage('views/user-login.html');
+
+      },
+      function () {
+        //Continue logging out...
+      }
+    );
+}); 
 
 // deviceready function for cordova
 document.addEventListener("deviceready", onDeviceReady, false);

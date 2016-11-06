@@ -16,10 +16,10 @@
 
         $final_array = array_merge($query_merchants, $query_services);
         function compare_first_key_date($a, $b) {
-            $a_keys = array_keys($a);
-            $a_date = strtotime($a_keys[0]);
-            $b_keys = array_keys($b);
-            $b_date = strtotime($b_keys[0]);
+            @$a_keys = array_keys($a);
+            @$a_date = strtotime($a_keys[0]);
+            @$b_keys = array_keys($b);
+            @$b_date = strtotime($b_keys[0]);
             return $a_date - $b_date;
         }
         uasort($final_array, 'compare_first_key_date');
@@ -48,7 +48,7 @@
 
         // print_r($user_balance);
         $next_balance = $user_balance - $amount;
-        print_r($next_balance);
+        // print_r($next_balance);
 
         // update values
         $dataUpdate = array(
