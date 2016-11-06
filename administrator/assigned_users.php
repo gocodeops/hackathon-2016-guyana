@@ -90,38 +90,6 @@
 		});
 	});
 
-
-
-
-	// $.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/unassigned', function(data) {
-	// 	data = $.parseJSON(data);
-
-	// 	$.each(data, function(i, value) {
-	// 		var active = data[i].active;
-	// 		var active_status = '';
-
-	// 		var id = data[i].id;
-
-	// 		if(active == 0) {
-	// 			active_status = '<button onclick="assign(\''+id+'\')" class="btn btn-xs btn-success">Enable</button>';
-	// 		}
-
-	// 		var content = '\
-	// 			<tr>\
- //                    <td>'+id+'</td>\
- //                    <td>'+data[i].firstname+'</td>\
- //                    <td>'+data[i].lastname+'</td>\
- //                    <td>'+data[i].district+'</td>\
- //                    <td>'+data[i].address+'</td>\
- //                    <td>'+active_status+'</td>\
- //                </tr>\
-	// 		';
-
-	// 		$('tbody').append(content);
-
-	// 	});
-	// });
-
 	function assign(id) {
 		//Enable user's status
 		swal({

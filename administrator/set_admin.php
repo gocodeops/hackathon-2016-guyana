@@ -17,8 +17,8 @@
     <div class="content animate-panel">
         <div class="row">
 		    <div class="col-lg-12" style="">
-			
-				<a href="set_admin.php" class="btn btn-primary">Modify permissions</a>
+
+		    <a href="admins.php" class="btn btn-primary">Admin overview</a>
 					<br><br>
 
 		        <div class="hpanel">
@@ -53,17 +53,19 @@
 <?php include 'footer.php'; ?>
 
 <script type="text/javascript">
-	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/view_admins', function(data) {
+	//Get data
+	$.get('http://gocodeops.com/hackathon_guyana_app/public/index.php/read/users', function(data) {
 		data = $.parseJSON(data);
 		
 		$.each(data, function(i, value) {
 			var user_type = data[i].user_type;;
+			var id = data[i].id;
 			var access = '';
 
 			if(user_type == 'user') {
-				access = '<span class="label label-primary">User</span>';
+				access = '<button onclick="setAdmin(\''+id+'\')" class="btn btn-xs btn-success">Set as Admin</button>';
 			} else if(user_type == 'admin') {
-				access = '<span class="label label-success">Admin</span>';
+				access = '<button onclick="setUser(\''+id+'\')" class="btn btn-xs btn-warning">Set as User</button>';
 			}
 
 			var content = '\
@@ -81,4 +83,53 @@
 			
 		});
 	});
+
+	//Grant/Modify permissions
+	function setAdmin(id) {
+		//Set as Admin
+		swal({
+            title: "Confirmation",
+            text: "Are you sure you want to enable user?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#b3ff99",
+            confirmButtonText: "Confirm",
+            html: false
+        }, function (isConfirm) {
+            if (!isConfirm) {
+                //Cancel confirmation
+            } else {
+            	$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/setAdmin',
+					{
+						id: id
+					}, function(data) {
+					window.location = window.location.href;
+				});
+            }
+        });		
+	}
+
+	function setUser(id) {
+		//Set as User
+		swal({
+            title: "Confirmation",
+            text: "Are you sure you want to disable user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#b3ff99",
+            confirmButtonText: "Confirm",
+            html: false
+        }, function (isConfirm) {
+            if (!isConfirm) {
+                //Cancel confirmation
+            } else {
+            	$.post('http://gocodeops.com/hackathon_guyana_app/public/index.php/setUser',
+					{
+						id: id
+					}, function(data) {
+					window.location = window.location.href;
+				});
+            }
+        });		
+	}
 </script>
