@@ -1,6 +1,6 @@
 <div class="pages">
 
-  <div data-page="payments" class="page navbar-fixed with-subnavbar">
+  <div data-page="my-transactions" class="page navbar-fixed with-subnavbar">
     <div class="navbar">
       <div class="navbar-inner">
           <div class="left"></div>
@@ -13,12 +13,16 @@
       </div>
   </div>
   <div class="subnavbar">
-      <div class="right animated fadeInRightBig fs-16">Balance: <span class="balance" id="balance_payments"></span></div>
+      <div class="right animated fadeInRightBig fs-16">Balance: <span class="balance" id="balance_my-transactions"></span></div>
   </div>
-    <div class="page-content">
-      <div id="payments">
+  <div class="page-content pull-to-refresh-content">
+    <div class="pull-to-refresh-layer">
+        <div class="preloader"></div>
+        <div class="pull-to-refresh-arrow"></div>
+    </div>
+    <div id="payments">
 
-      </div>
+    </div>
       <div id="show_more_payments" class="button button-big">Show More</div>
     </div>
   </div>

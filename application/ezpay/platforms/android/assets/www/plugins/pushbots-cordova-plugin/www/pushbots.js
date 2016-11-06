@@ -2,8 +2,8 @@ cordova.define("pushbots-cordova-plugin.PushbotsPlugin", function(require, expor
 "use strict";
 
 /**
- * Provide communication between the Cordova JavaScript and the native environment.
- *
+ * Provide communication between the Cordova JavaScript and the native environment. 
+ * 
  * @param {exec~successCallback} successFunction - Success function callback. Assuming your exec() call completes successfully, this function is invoked.
  * @param {exec~failCallback} failFunction - Error function callback. If the operation doesn't complete successfully, this function is invoked.
  * @param {string} service - The name of the service to call into on the native side. This is mapped to a native class.
@@ -29,9 +29,9 @@ var PushbotsPlugin = function() {};
 * @see {@link https://pushbots.com/../../#Options}
 */
 PushbotsPlugin.prototype.initialize = function(app_id, options) {
-
+	
 	this._events = {};
-
+	
 	/* VALIDATE APP_ID */
 	// Pushbots Application ID is required
 	if (typeof app_id === 'undefined') {
@@ -44,12 +44,12 @@ PushbotsPlugin.prototype.initialize = function(app_id, options) {
 	}
 
 	this.app_id = app_id;
-
+	
 	/* VALIDATE PLATFORM-SPECIFIC OPTIONS*/
 	// iOS:
 	// Android:
 	this.options = options;
-
+	
 	var that = this;
 	var success = function(data){
 		if (data && typeof data.type !== 'undefined') {
@@ -65,10 +65,9 @@ PushbotsPlugin.prototype.initialize = function(app_id, options) {
 			}
 		}else{
 			console.log("registration id: "+data);
-			localStorage.setItem('device_token', data);
 		}
 	};
-
+	
 	var fail = function(error){
 		console.error(error);
 	};
@@ -83,15 +82,15 @@ PushbotsPlugin.prototype.initialize = function(app_id, options) {
 * @param {callback} callback
 */
 PushbotsPlugin.prototype.on = function (eventName, callback) {
-
+	
 	if (typeof callback !== 'function')
 		return;
-
+	
 	if (! this._events.hasOwnProperty(eventName)) {
 		this._events[eventName] = [];
 	}
 	this._events[eventName].push(callback);
-
+	
 };
 
 /**
@@ -170,7 +169,7 @@ PushbotsPlugin.prototype.setBadge = function(badge){
 PushbotsPlugin.prototype.done = function(notification_id, success, fail){
 	if (!success) { success = function() {}; }
 	if (!fail) { fail = function() {}; }
-
+	
 	exec(undefined, undefined, SERVICE_TITLE, 'done', [notification_id]);
 };
 
