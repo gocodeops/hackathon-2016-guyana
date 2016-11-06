@@ -27,5 +27,9 @@
         print_r(json_encode($query));
     });
 
-
+    // get merchant invoices
+    $app->get('/merchants/invoice/{sender_id}', function($request, $response, $args){
+        $query = DB::table('view_invoices')->where('sender_id', $args['sender_id'])->get();
+        print_r(json_encode($query));
+    });
 ?>
