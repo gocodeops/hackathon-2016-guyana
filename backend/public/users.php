@@ -52,7 +52,8 @@
     //Login
     $app->post('/app_login', function ($request, $response, $args) {
         $query = DB::table('users')
-            ->where('id', $_POST['id']);
+            ->where('id', $_POST['id'])
+            ->where('active', '1');
         if($query->count() > 0) {
             print_r(json_encode($query->get()));
         } else {
