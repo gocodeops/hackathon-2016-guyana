@@ -66,6 +66,8 @@ $$(document).on('pageInit', function (e) {
 myApp.onPageInit('index', function (page) {
 	myApp.showIndicator();
 
+    mainView.router.loadPage('views/user-login.html');
+
     var first_use;
 
     if(localStorage.getItem('first_use')) {
@@ -349,6 +351,36 @@ $$('#logout').on('click', function () {
       }
     );
 });
+
+myApp.onPageInit('income', function (page) {
+    var ptrContent = $$('.pull-to-refresh-content');
+    ptrContent.on('refresh', function (e){
+        setTimeout(function(){
+
+        },2000);
+        myApp.alert('het gaat'),
+        myApp.pullToRefreshDone(ptrContent)
+    })
+});
+
+myApp.onPageInit('invoices', function (page) {
+    var ptrContent = $$('.pull-to-refresh-content');
+    ptrContent.on('refresh', function (e){
+        
+        myApp.alert('het gaat'),
+        myApp.pullToRefreshDone(ptrContent)
+    })
+});
+
+myApp.onPageInit('my-transactions', function (page) {
+    var ptrContent = $$('.pull-to-refresh-content');
+    ptrContent.on('refresh', function (e){
+        
+        myApp.alert('het gaat'),
+        myApp.pullToRefreshDone(ptrContent)
+    })
+});
+
 
 // deviceready function for cordova
 document.addEventListener("deviceready", onDeviceReady, false);
