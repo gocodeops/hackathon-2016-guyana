@@ -47,8 +47,8 @@ function getBalance(pageName, usertype){
     }else if(usertype = 'merchant'){
         $$.get('http://gocodeops.com/hackathon_guyana_app/public/merchants/get/' + merchant_code, function(data){
             data = JSON.parse(data);
-            // console.log(data);
-            var balance = currencyInt(data.balance);
+            console.log(data);
+            var balance = currencyInt(data[0].balance);
             $$("#balance_" + pageName).html(" $ "+ balance);
         });
     }
@@ -176,7 +176,7 @@ myApp.onPageInit('second-login', function (page) {
 
 myApp.onPageInit('merchant-login', function (page) {
 
-    $$("#login").submit(function(e){
+    $$("#merchant-login").submit(function(e){
         e.preventDefault();
         formName = $$("#merchant-login");
         $$.post('http://gocodeops.com/hackathon_guyana_app/public/merchant/login', {code: $$("#code").val(), password: $$("#password").val()}, function(data){
