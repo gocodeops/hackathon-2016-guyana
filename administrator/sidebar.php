@@ -13,6 +13,7 @@
             <li><a href="assigned_users"> <span class="nav-label">Assign user</span></a></li>
             <li><a href="merchants"><span class="nav-label">Merchants</span></a></li>
             <li><a href="services"><span class="nav-label">Services</span></a></li>
+            <li><a href="invoices"><span class="nav-label">Invoices</span></a></li>
             <li><a href="transactions"><span class="nav-label">Pension Transaction</span></a></li>
             <li><a href="user2user"><span class="nav-label">User-To-User Transaction</span></a></li>
             <li><a href="payments"><span class="nav-label">User Payments</span></a></li>
